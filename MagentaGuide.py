@@ -3,10 +3,33 @@ Tmo Hackathon: Alexa Guide for Onboarding
 """
 
 from __future__ import print_function
-//Name, email, id
+import smtplib
+#Name, email, id
 user = ("Joseph Koblitz", "Joseph.Koblitz1@T-Mobile.com","123456")
-//subject,link,body
+#subject,link,body
 email = ("","","")
+
+# --------------- Email handler -----------------
+def send_email(email, subject, message):
+    """Sends email to employee"""
+    smtpObj = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+    smtpObj.ehlo()
+
+    sent_from = "faketmobileofficialemail@gmail.com"
+    to = email
+    subject_line = "Subject: " + subject
+    body = message
+
+    email_text = """
+From: {}
+To: {}
+{}
+
+{}""".format(sent_from, ", ".join(to), subject_line, subject_line+body)
+    smtpObj.login(sent_from, 'tmobileis3real5me')
+    smtpObj.sendmail(sent_from, to[0], email_text)
+    smtpObj.quit()
+
 
 
 # --------------- Helpers that build all of the responses ----------------------
@@ -112,10 +135,10 @@ def give_information_time_keeping():
                     "You can stamp your time card virtually on the right corner to log in and out. " \
                     "If you would like more information, please say yes and I will email the link to you. "
 
-    email = ("Time Keeping Follow-up","https://t-mobile.csod.com/LMS/catalog/Welcome.aspx?tab_page_id=-67&tab_id=-1","Here's the information you requested: ")
-
     reprompt_text = "Are you still there? "
     should_end_session = False
+
+    email = ("Time Keeping Follow-up","https://t-mobile.csod.com/LMS/catalog/Welcome.aspx?tab_page_id=-67&tab_id=-1","Here's the information you requested: ")
 
     return build_response({}, build_speechlet_response(
     card_title, speech_output, reprompt_text, should_end_session))
@@ -128,7 +151,7 @@ def email_information():
 	reprompt_text = "Hello? Are you still there? What else would you like" \
 	                "to learn about?"
 
-    send_email(user[1],email[0], email[2]+email[1])
+	send_email([user[1]],email[0], email[2]+email[1])
 
 	should_end_session = False
 
@@ -237,27 +260,6 @@ def on_session_ended(session_ended_request, session):
     print("on_session_ended requestId=" + session_ended_request['requestId'] +
           ", sessionId=" + session['sessionId'])
     # add cleanup logic here
-
-# --------------- Email handler -----------------
-def send_email(email, subject, message):
-    """Sends email to employee"""
-    smtpObj = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-    smtpObj.ehlo();
-
-    sent_from = "faketmobileofficialemail@gmail.com"
-    to = email
-    subject_line = subject
-    body = message
-
-    email_text = """
-From: {}
-To: {}
-{}
-
-{}""".format(sent_from, ", ".join(to), subject_line, subject_line+body)
-    smtpObj.login(sent_from, 'tmobileis3real5me')
-    smtpObj.sendmail(sent_from, to[0], email_text)
-    smtpObj.quit()
 
 # --------------- Main handler ------------------
 
