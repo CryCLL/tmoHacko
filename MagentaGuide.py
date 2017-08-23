@@ -3,6 +3,10 @@ Tmo Hackathon: Alexa Guide for Onboarding
 """
 
 from __future__ import print_function
+//Name, email, id
+user = ("Joseph Koblitz", "Joseph.Koblitz1@T-Mobile.com","123456")
+//subject,link,body
+email = ("","","")
 
 
 # --------------- Helpers that build all of the responses ----------------------
@@ -51,26 +55,26 @@ def get_welcome_response():
                     "If you do not have your log in information, please contact " \
                     "your manager. Once you have finished, say get started or i'm ready "\
                     "to ask me any questions. "
-    
+
     reprompt_text = "Are you still there?"
     should_end_session = False
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
-        
-        
+
+
 def getting_started():
     """
         Alexa says this when the user understands
     """
-    
+
     card_title= "Getting Started"
     speech_output ="To get started, ask me questions about your first day " \
                     "for example, you can ask me about benefits like employee discounts or time keeping."
-    
+
     reprompt_text = "Are you still there"
-    
+
     should_end_session = False
-    
+
     return build_response({}, build_speechlet_response(
     card_title, speech_output, reprompt_text, should_end_session))
 
@@ -86,7 +90,7 @@ def handle_session_end_request():
     should_end_session = True
     return build_response({}, build_speechlet_response(
         card_title, speech_output, None, should_end_session))
-		
+
 def give_information_disco():
     """
         Alexa gives user information about discounts
@@ -95,25 +99,27 @@ def give_information_disco():
     speech_output = "I see you wanted to know about employee discounts. " \
 					"Well, everyone gets 200% off everything. " \
 					"That is right, we give you the cost of the item to take it away. " \
-					"If you would like more information, please say yes and I will email the link to you. " 
+					"If you would like more information, please say yes and I will email the link to you. "
 
     should_end_session = False
     return build_response({}, build_speechlet_response(
     card_title, speech_output, None, should_end_session))
-    
-    
+
+
 def give_information_time_keeping():
     card_title = "Time-Keeping"
     speech_output = "To log your hours, look for the Kronos desktop application. " \
                     "You can stamp your time card virtually on the right corner to log in and out. " \
                     "If you would like more information, please say yes and I will email the link to you. "
-                    
+
+    email = ("Time Keeping Follow-up","https://t-mobile.csod.com/LMS/catalog/Welcome.aspx?tab_page_id=-67&tab_id=-1","Here's the information you requested: ")
+
     reprompt_text = "Are you still there? "
     should_end_session = False
-    
+
     return build_response({}, build_speechlet_response(
     card_title, speech_output, reprompt_text, should_end_session))
-		
+
 def email_information():
 	card_title = "Email Link"
 	speech_output = "I have sent a link to you about more information. " \
@@ -121,24 +127,26 @@ def email_information():
 					"What else would you like to learn about?"
 	reprompt_text = "Hello? Are you still there? What else would you like" \
 	                "to learn about?"
-	
+
+    send_email(user[1],email[0], email[2]+email[1])
+
 	should_end_session = False
-	
+
 	return build_response({}, build_speechlet_response(
     card_title, speech_output, reprompt_text, should_end_session))
 
 def helper():
 	card_title = "Help"
 	speech_output = "No help will be given. Farewell."
-	
+
 	should_end_session = True
 	return build_response({}, build_speechlet_response(
         card_title, speech_output, None, should_end_session))
-		
+
 def thatIsAll():
 	card_title = "Farewell"
 	speech_output = "Have a great time at T Mobile!"
-	
+
 	should_end_session = True
 	return build_response({}, build_speechlet_response(
         card_title, speech_output, None, should_end_session))
@@ -147,7 +155,7 @@ def middle_anymore_info():
 	card_title = "Just Asking Anymore"
 	speech_output = "Go ahead and ask about anything else you would" \
 					"like to know more about!"
-	
+
 	reprompt_text = "Is anyone still there?"
 	should_end_session = False
 	return build_response({}, build_speechlet_response(
@@ -163,7 +171,7 @@ def top_level_menu(intent, session):
     speech_output = "I'm not sure what you want to know. " \
                     "You can say, the topic I want to know is employee discounts."
     should_end_session = False
-	
+
     return build_response(session_attributes, build_speechlet_response(
         intent['name'], speech_output, reprompt_text, should_end_session))
 
@@ -230,6 +238,26 @@ def on_session_ended(session_ended_request, session):
           ", sessionId=" + session['sessionId'])
     # add cleanup logic here
 
+# --------------- Email handler -----------------
+def send_email(email, subject, message):
+    """Sends email to employee"""
+    smtpObj = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+    smtpObj.ehlo();
+
+    sent_from = "faketmobileofficialemail@gmail.com"
+    to = email
+    subject_line = subject
+    body = message
+
+    email_text = """
+From: {}
+To: {}
+{}
+
+{}""".format(sent_from, ", ".join(to), subject_line, subject_line+body)
+    smtpObj.login(sent_from, 'tmobileis3real5me')
+    smtpObj.sendmail(sent_from, to[0], email_text)
+    smtpObj.quit()
 
 # --------------- Main handler ------------------
 

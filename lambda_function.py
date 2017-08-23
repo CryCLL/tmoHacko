@@ -217,6 +217,8 @@ def on_session_ended(session_ended_request, session):
     # add cleanup logic here
 
 
+# --------------- Email handler -----------------
+
 # --------------- Main handler ------------------
 
 def lambda_handler(event, context):
