@@ -9,6 +9,8 @@ http://amzn.to/1LGWsLG
 
 from __future__ import print_function
 import requests
+# http://stackabuse.com/how-to-send-emails-with-gmail-using-python/
+import smtplib
 
 
 # --------------- Helpers that build all of the responses ----------------------
@@ -85,7 +87,7 @@ def set_color_in_session(intent, session):
     card_title = intent['name']
     session_attributes = {}
     should_end_session = False
-
+    """
     if 'Color' in intent['slots']:
         favorite_color = intent['slots']['Color']['value']
         session_attributes = create_favorite_color_attributes(favorite_color)
@@ -101,6 +103,43 @@ def set_color_in_session(intent, session):
         reprompt_text = "I'm not sure what your favorite color is. " \
                         "You can tell me your favorite color by saying, " \
                         "my favorite color is red."
+    """
+
+    """
+    r = requests.get('https://api.github.com', auth=('user', 'pass'))
+    >>> r.status_code
+    204
+    >>> r.headers['content-type']
+    'application/json'
+    >>> r.text
+    """
+
+
+    r = requests.get('https://learning.t-mobile.com/econtent/un/OTD/OneVoice/NEO/index.html')
+
+    speech_output = str(r.text[:1000])
+    reprompt_text = "You can ask me your favorite color by saying, " \
+                        "what's my favorite color?"
+
+
+    smtpObj = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+    smtpObj.ehlo();
+
+    sent_from = "faketmobileofficialemail@gmail.com"
+    to = ['Joseph.Koblitz1@T-Mobile.com']
+    subject = 'Subject: OMG Super Important Message'
+    body = "Hey, what's up?\n\n- You"
+
+    email_text = """
+From: {}
+To: {}
+{}
+
+{}""".format(sent_from, ", ".join(to), subject, subject+body)
+    smtpObj.login(sent_from, 'tmobileis3real5me')
+    smtpObj.sendmail(sent_from, to[0], email_text)
+    smtpObj.quit()
+
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
 
