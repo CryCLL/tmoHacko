@@ -1,10 +1,5 @@
 """
-This sample demonstrates a simple skill built with the Amazon Alexa Skills Kit.
-The Intent Schema, Custom Slots, and Sample Utterances for this skill, as well
-as testing instructions are located at http://amzn.to/1LzFrj6
-
-For additional samples, visit the Alexa Skills Kit Getting Started guide at
-http://amzn.to/1LGWsLG
+Tmo Hackathon: Alexa Guide for Onboarding
 """
 
 from __future__ import print_function
@@ -44,24 +39,46 @@ def build_response(session_attributes, speechlet_response):
 # --------------- Functions that control the skill's behavior ------------------
 
 def get_welcome_response():
-    """ Alexa enters the 
+    """ Alexa enters the guide. Prompts user if they understand
     """
 
     session_attributes = {}
     card_title = "Welcome"
     speech_output = "Welcome to the T Mobile Magenta Guide. " \
                     "I will now walk you through the steps to becoming a successful employee... " \
-					"There are many things to learn!" \
-					"For instance, you could learn about popular topics such as " \
-					"Employee discounts, paid time off, vacations, and more!" \
-					"What topic do you want to learn about?"
+                    "First, let's get you logged into your company laptop. " \
+                    "Please log in with your given NT ID and password. " \
+                    "If you do not have your log in information, please contact " \
+                    "your manager. Once you have finished, say get started or i'm ready "\
+                    "to ask me any questions. "
+    
     reprompt_text = "Are you still there?"
     should_end_session = False
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
+        
+        
+def getting_started():
+    """
+        Alexa says this when the user understands
+    """
+    
+    card_title= "Getting Started"
+    speech_output ="To get started, ask me questions about your first day " \
+                    "for example, you can ask me about benefits like employee discounts or time keeping."
+    
+    reprompt_text = "Are you still there"
+    
+    should_end_session = False
+    
+    return build_response({}, build_speechlet_response(
+    card_title, speech_output, reprompt_text, should_end_session))
 
 
 def handle_session_end_request():
+    """
+        Alexa leaves you.
+    """
     card_title = "Session Ended"
     speech_output = "Thank you for trying the Magenta Guide. " \
                     "Have a nice day! "
@@ -70,16 +87,32 @@ def handle_session_end_request():
     return build_response({}, build_speechlet_response(
         card_title, speech_output, None, should_end_session))
 		
-def give_information():
+def give_information_disco():
+    """
+        Alexa gives user information about discounts
+    """
     card_title = "Giving Information"
     speech_output = "I see you wanted to know about employee discounts. " \
 					"Well, everyone gets 200% off everything. " \
 					"That is right, we give you the cost of the item to take it away. " \
-					"If you would like more information, please say yes and I will email the link. " 
+					"If you would like more information, please say yes and I will email the link to you. " 
 
     should_end_session = False
     return build_response({}, build_speechlet_response(
     card_title, speech_output, None, should_end_session))
+    
+    
+def give_information_time_keeping():
+    card_title = "Time-Keeping"
+    speech_output = "To log your hours, look for the Kronos desktop application. " \
+                    "You can stamp your time card virtually on the right corner to log in and out. " \
+                    "If you would like more information, please say yes and I will email the link to you. "
+                    
+    reprompt_text = "Are you still there? "
+    should_end_session = False
+    
+    return build_response({}, build_speechlet_response(
+    card_title, speech_output, reprompt_text, should_end_session))
 		
 def email_information():
 	card_title = "Email Link"
@@ -90,16 +123,21 @@ def email_information():
 	                "to learn about?"
 	
 	should_end_session = False
+	
 	return build_response({}, build_speechlet_response(
     card_title, speech_output, reprompt_text, should_end_session))
-
-
-def create_focus_object_attributes(focus_object):
-    return {"favoriteColor": focus_object}
 
 def helper():
 	card_title = "Help"
 	speech_output = "No help will be given. Farewell."
+	
+	should_end_session = True
+	return build_response({}, build_speechlet_response(
+        card_title, speech_output, None, should_end_session))
+		
+def thatIsAll():
+	card_title = "Farewell"
+	speech_output = "Have a great time at T Mobile!"
 	
 	should_end_session = True
 	return build_response({}, build_speechlet_response(
@@ -116,6 +154,9 @@ def middle_anymore_info():
     card_title, speech_output, reprompt_text, should_end_session))
 
 def top_level_menu(intent, session):
+    """
+        Alexa says this if she doesn't understand you
+    """
     session_attributes = {}
     reprompt_text = None
 
@@ -160,12 +201,18 @@ def on_intent(intent_request, session):
 
     if intent_name == "askingIntent":
         return top_level_menu(intent, session)
+    elif intent_name == "TimeKeepingIntent":
+        return give_information_time_keeping()
     elif intent_name == "emailInfoIntent":
         return email_information()
+    elif intent_name == "GettingStartedIntent":
+        return getting_started()
+    elif intent_name == "thatIsAllIntent":
+        return thatIsAll()
     elif intent_name == "middle_anymore":
         return middle_anymore_info()
-    elif intent_name == "giveInformationIntent":
-        return give_information()
+    elif intent_name == "giveInformationIntentDisco":
+        return give_information_disco()
     elif intent_name == "AMAZON.HelpIntent":
         return helper()
     elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":
