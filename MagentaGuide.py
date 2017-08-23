@@ -44,18 +44,18 @@ def build_response(session_attributes, speechlet_response):
 # --------------- Functions that control the skill's behavior ------------------
 
 def get_welcome_response():
-    """ If we wanted to initialize the session to have some attributes we could
-    add those here
+    """ Alexa enters the 
     """
 
     session_attributes = {}
     card_title = "Welcome"
     speech_output = "Welcome to the T Mobile Magenta Guide. " \
                     "I will now walk you through the steps to becoming a successful employee... " \
-					"Do you understand?"
-    # If the user either does not reply to the welcome message or says something
-    # that is not understood, they will be prompted again with this text.'
-    reprompt_text = "Please tell me you understand."
+					"There are many things to learn!" \
+					"For instance, you could learn about popular topics such as " \
+					"Employee discounts, paid time off, vacations, and more!" \
+					"What topic do you want to learn about?"
+    reprompt_text = "Are you still there?"
     should_end_session = False
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
@@ -69,57 +69,60 @@ def handle_session_end_request():
     should_end_session = True
     return build_response({}, build_speechlet_response(
         card_title, speech_output, None, should_end_session))
+		
+def give_information():
+    card_title = "Giving Information"
+    speech_output = "I see you wanted to know about employee discounts. " \
+					"Well, everyone gets 200% off everything. " \
+					"That is right, we give you the cost of the item to take it away. " \
+					"If you would like more information, please say yes and I will email the link. " 
+
+    should_end_session = False
+    return build_response({}, build_speechlet_response(
+    card_title, speech_output, None, should_end_session))
+		
+def email_information():
+	card_title = "Email Link"
+	speech_output = "I have sent a link to you about more information. " \
+					"Please check your inbox in 5 seconds or more. " \
+					"What else would you like to learn about?"
+	reprompt_text = "Hello? Are you still there? What else would you like" \
+	                "to learn about?"
+	
+	should_end_session = False
+	return build_response({}, build_speechlet_response(
+    card_title, speech_output, reprompt_text, should_end_session))
 
 
 def create_focus_object_attributes(focus_object):
     return {"favoriteColor": focus_object}
 
+def helper():
+	card_title = "Help"
+	speech_output = "No help will be given. Farewell."
+	
+	should_end_session = True
+	return build_response({}, build_speechlet_response(
+        card_title, speech_output, None, should_end_session))
 
-def set_color_in_session(intent, session):
-    """ Sets the color in the session and prepares the speech to reply to the
-    user.
-    """
+def middle_anymore_info():
+	card_title = "Just Asking Anymore"
+	speech_output = "Go ahead and ask about anything else you would" \
+					"like to know more about!"
+	
+	reprompt_text = "Is anyone still there?"
+	should_end_session = False
+	return build_response({}, build_speechlet_response(
+    card_title, speech_output, reprompt_text, should_end_session))
 
-    card_title = intent['name']
-    session_attributes = {}
-    should_end_session = False
-
-    if 'item' in intent['slots']:
-        focus_object = intent['slots']['item']['value']
-        session_attributes = create_focus_object_attributes(focus_object)
-        speech_output = "Test " + \
-                        focus_object + \
-                        "You can ask me your favorite color by saying, " \
-                        "what's my favorite topic?"
-        reprompt_text = "You can ask me your favorite topic by saying, " \
-                        "what's my favorite topic?"
-    else:
-        speech_output = "I'm not sure what you want to know . " \
-                        "Please try again."
-        reprompt_text = "I'm not sure what your favorite color is. " \
-                        "You can tell me your favorite topic by saying, " \
-                        "my favorite color is red."
-    return build_response(session_attributes, build_speechlet_response(
-        card_title, speech_output, reprompt_text, should_end_session))
-
-
-def get_color_from_session(intent, session):
+def top_level_menu(intent, session):
     session_attributes = {}
     reprompt_text = None
 
-    if session.get('attributes', {}) and "favoriteColor" in session.get('attributes', {}):
-        focus_object = session['attributes']['favoriteColor']
-        speech_output = "Your favorite color is " + focus_object + \
-                        ". Goodbye."
-        should_end_session = True
-    else:
-        speech_output = "I'm not sure what you want to know. " \
-                        "You can say, the topic I want to know is money."
-        should_end_session = False
-
-    # Setting reprompt_text to None signifies that we do not want to reprompt
-    # the user. If the user does not respond or says something that is not
-    # understood, the session will end.
+    speech_output = "I'm not sure what you want to know. " \
+                    "You can say, the topic I want to know is employee discounts."
+    should_end_session = False
+	
     return build_response(session_attributes, build_speechlet_response(
         intent['name'], speech_output, reprompt_text, should_end_session))
 
@@ -154,12 +157,17 @@ def on_intent(intent_request, session):
     intent_name = intent_request['intent']['name']
 
     # Dispatch to your skill's intent handlers
-    if intent_name == "startMagentaGuide":
-        return set_color_in_session(intent, session)
-    elif intent_name == "WhatsMyColorIntent":
-        return get_color_from_session(intent, session)
+
+    if intent_name == "askingIntent":
+        return top_level_menu(intent, session)
+    elif intent_name == "emailInfoIntent":
+        return email_information()
+    elif intent_name == "middle_anymore":
+        return middle_anymore_info()
+    elif intent_name == "giveInformationIntent":
+        return give_information()
     elif intent_name == "AMAZON.HelpIntent":
-        return get_welcome_response()
+        return helper()
     elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":
         return handle_session_end_request()
     else:
