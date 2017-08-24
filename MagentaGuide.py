@@ -216,6 +216,10 @@ def top_level_menu(intent, session):
         intent['name'], speech_output, reprompt_text, should_end_session))
         
 def employee_benefits():
+    try:
+        session_attributes = session['attributes']
+    except:
+        session_attributes = {}
     card_title = "Employee Benifits"
     speech_output = "T Mobile's beniefits are going to rock your world. " \
                     " Benefits include medical and prescription benefits. " \
@@ -233,11 +237,11 @@ def employee_benefits():
         
 def retirement():
     card_title="401k"
-    
+    session_attributes = {}
     speech_output = "As one of the top companies to work for " \
                     "we will contribute to your four oh one k, " \
                     "however, it is only 5% of your earnings because " \
-                    "to be frank, we don't want you to retire too early.
+                    "to be frank, we don't want you to retire too early. " \
                     "Would you like an email to be sent to you about this? "
                     
     reprompt_text = "Hello? It has been a few seconds since I last heard your voice. "\
@@ -253,16 +257,18 @@ def retirement():
         
 def code_of_conduct():
    card_title= "Code of Business Conduct"
+   session_attributes = {}
    speech_output= "Some principles of our code of conduct include" \
                    "non-discrimination policies and privacy laws. " \
                    "Also, please refrain from chest bumping of any sort " \
                    "as that can be deemed inappropriate depending on the employee. " \
-                   "Would you like an email about more information? "
+                   "Would you like an email about more information? "           
+    
+   reprompt_text = "Hello? Are you still there? What else would you like " \
+        "to learn about? "
+
                    
-    reprompt_text = "Hello? Are you still there? What else would you like" \
-                   "to learn about?"
-                   
-    session_attributes['email'] = ["Employee Benefits","http://tmusabenefitshub.com/",\
+   session_attributes['email'] = ["Employee Benefits","http://tmusabenefitshub.com/",\
                                     "\n\nHere's the information you requested: ", " If you need more help, please contact the EIT or Help Desk. "]
   
    should_end_session = False
@@ -271,8 +277,9 @@ def code_of_conduct():
    
 def employee_handbook():
     card_title= "Employee Handbook"
+    session_attributes = {}
     speech_output= "T-Mobile's employee's handbook can be found on twitter. " \
-                   "It is a short read with a brief 140 characters. 
+                   "It is a short read with a brief 140 characters. " \
                    "Would you like an email with more information? "
     reprompt_text = "Hello? Are you still there? What else would you like" \
                    "to learn about?"
@@ -286,6 +293,7 @@ def employee_handbook():
     
 def company_culture():
     card_title= "Our Culture"
+    session_attributes = {}
     speech_output = "T Mobile's ocmpany culture is best exemplified by our CEO, John Legere " \
                     "He swears a lot and wears magenta converse" \
                     "In other words, we're a lot cooler than Verizon. " \
@@ -302,6 +310,7 @@ def company_culture():
     
 def diversity_inclusion():
     card_title= "Diversity and Inclusion"
+    session_attributes = {}
     speech_output= "If you turn everyone Magenta, you don't need to worry about diversity. Exclamation mark. Because I can't sound enthusiastic. Would you like an email with more information sent to you?"
 
     session_attributes['email'] = ["Employee Benefits","http://tmusabenefitshub.com/",\
@@ -313,7 +322,8 @@ def diversity_inclusion():
     
 def talent_referral():
     card_title= "Talent Referral"
-    speech_output= "To clone and refer yourself, thereby doubling your paycheck, please discuss your options with John Legere's ego on the 50th floor of Newport Five."
+    session_attributes = {}
+    speech_output= "To clone and refer yourself, thereby doubling your paycheck, please discuss your options with John Legere's ego on the 50th floor of Newport Five. Would you like an email with new info? "
     
     session_attributes['email'] = ["Employee Benefits","http://tmusabenefitshub.com/",\
                                     "\n\nHere's the information you requested: ", " If you need more help, please contact the EIT or Help Desk. "]
@@ -324,6 +334,7 @@ def talent_referral():
     
 def wireless_network():
     card_title= "Wireless network"
+    session_attributes = {}
     speech_output= "All that you need to know is that our network is the best network. Not Verizon's. Ours."
 
     session_attributes['email'] = ["Employee Benefits","http://tmusabenefitshub.com/",\
@@ -335,24 +346,36 @@ def wireless_network():
     
 def employee_recognition():
     card_title= "Employee Recognition"
-    speech_output= "Wow, the team that made this product is so cool!"
-
+    session_attributes = {}
+    speech_output= "Wow, the team that made this product is so cool! Would you like more information about how to be recognized sent to you through email? "
+    
+    
+    session_attributes['email'] = ["Employee Benefits","http://tmusabenefitshub.com/",\
+                                    "\n\nHere's the information you requested: ", " If you need more help, please contact the EIT or Help Desk. "]
     should_end_session = False
     return build_response({}, build_speechlet_response(
     card_title, speech_output, None, should_end_session))
     
 def development_resources():
     card_title= "Develop Resources"
-    speech_output= "Our resources don't need development. I'm a strong independent AI, leave me alone."
+    session_attributes = {}
+    speech_output= "Our resources don't need development. I'm a strong independent AI, leave me alone. I will give you the option of recieving an email with more information though. Would you like an email with more information sent to your inbox? "
 
+    session_attributes['email'] = ["Employee Benefits","http://tmusabenefitshub.com/",\
+                                    "\n\nHere's the information you requested: ", " If you need more help, please contact the EIT or Help Desk. "]
+    
     should_end_session = False
     return build_response({}, build_speechlet_response(
     card_title, speech_output, None, should_end_session))
 
 def Profesisonal_Standards_Training():
     card_title= "Pro_Standards_Training"
+    session_attributes = {}
     speech_output= "I see you are wanting to know more about our " \
-                    "fantastic Professional Standards Training Program. "
+                    "fantastic Professional Standards Training Program. Would you like an email sent to you about that? "
+                    
+    session_attributes['email'] = ["Employee Benefits","http://tmusabenefitshub.com/",\
+                                    "\n\nHere's the information you requested: ", " If you need more help, please contact the EIT or Help Desk. "]
 
     should_end_session = False
     return build_response({}, build_speechlet_response(
@@ -360,17 +383,25 @@ def Profesisonal_Standards_Training():
     
 def Learning_Resources():
     card_title= "Learning_res"
+    session_attributes = {}
     speech_output= "I see you want to learn more about Learn Resources. " \
-                    "Am I not enough? "
+                    "Am I not enough? That's okay, I'll send you an email with more resources if you want. Do you want it? "
 
+    session_attributes['email'] = ["Employee Benefits","http://tmusabenefitshub.com/",\
+                                    "\n\nHere's the information you requested: ", " If you need more help, please contact the EIT or Help Desk. "]
     should_end_session = False
     return build_response({}, build_speechlet_response(
     card_title, speech_output, None, should_end_session))
     
 def Accelerate_My_Performance():
     card_title= "AccelTime"
+    session_attributes = {}
     speech_output= "I see you are interested in accelerating your own performance. " \
-                    "The first step would be to swithc from Verizon to T Mobile... There is no step 2. "
+                    "The first step would be to switch from Verizon to T Mobile... There is no step 2. Would you like an email with the steps? "
+                    
+    session_attributes['email'] = ["Employee Benefits","http://tmusabenefitshub.com/",\
+                                    "\n\nHere's the information you requested: ", " If you need more help, please contact the EIT or Help Desk. "]
+                    
 
     should_end_session = False
     return build_response({}, build_speechlet_response(
@@ -378,8 +409,12 @@ def Accelerate_My_Performance():
     
 def Employee_Expectations():
     card_title= "employ_expect"
+    session_attributes = {}
     speech_output= "I see you are wanting to know more about " \
-                    "Employee Expectations. You are expected to make us money and not get in trouble "
+                    "Employee Expectations. You are expected to make us money and not get in trouble. Would you like an email with more information? "
+                    
+    session_attributes['email'] = ["Employee Benefits","http://tmusabenefitshub.com/",\
+                                    "\n\nHere's the information you requested: ", " If you need more help, please contact the EIT or Help Desk. "]
 
     should_end_session = False
     return build_response({}, build_speechlet_response(
@@ -387,8 +422,12 @@ def Employee_Expectations():
     
 def TMUS_Policies():
     card_title= "Pro_Standards_Training"
+    session_attributes = {}
     speech_output= "I see you are wanting to know more about our " \
-                    "fantastic Professional Standards Training Program. "
+                    "fantastic Professional Standards Training Program. There's so much info, I will just prompt you as to whether or not you want it sent to you by email. Would you like an email sent to you? "
+    
+    session_attributes['email'] = ["Employee Benefits","http://tmusabenefitshub.com/",\
+                                    "\n\nHere's the information you requested: ", " If you need more help, please contact the EIT or Help Desk. "]
 
     should_end_session = False
     return build_response({}, build_speechlet_response(
@@ -397,8 +436,12 @@ def TMUS_Policies():
     
 def Complaints_and_Incidents():
     card_title= "Pro_Standards_Training"
+    session_attributes = {}
     speech_output= "I see you are interested in complaining about something. " \
-                    "There will be no complaining. "
+                    "There will be no complaining. Would you like an email sent to you with the same amount of information? "
+                    
+    session_attributes['email'] = ["Employee Benefits","http://tmusabenefitshub.com/",\
+                                    "\n\nHere's the information you requested: ", " If you need more help, please contact the EIT or Help Desk. "]
 
     should_end_session = False
     return build_response({}, build_speechlet_response(
