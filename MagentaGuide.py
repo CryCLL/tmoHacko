@@ -215,8 +215,170 @@ def top_level_menu(intent, session):
     return build_response(session_attributes, build_speechlet_response(
         intent['name'], speech_output, reprompt_text, should_end_session))
         
+def employee_benefits():
+    card_title = "Employee Benifits"
+    speech_output = "T Mobile's beniefits are going to rock your world. " \
+                    " Benefits include medical and prescription benefits. " \
+                    " dental and vision plans, life insurance, flexible spending. " \
+                    "and much much more. " \
+                    "If you would like more information, please say yes and I will email the link to you. "
+    should_end_session = False
     
+    session_attributes['email'] = ["Employee Benefits","http://tmusabenefitshub.com/",\
+                                    "\n\nHere's the information you requested: ", " If you need more help, please contact the EIT or Help Desk. "]
 
+
+    return build_response(session_attributes, build_speechlet_response(
+        intent['name'], speech_output, reprompt_text, should_end_session))
+        
+def retirement():
+    card_title="401k"
+    
+    speech_output = "As one of the top companies to work for " \
+                    "we will contribute to your four oh one k, " \
+                    "however, it is only 5% of your earnings because " \
+                    "to be frank, we don't want you to retire too early. "
+                    
+    reprompt_text = "Hello? It has been a few seconds since I last heard your voice. "\
+                    "What else would you like to know about? "
+                    
+    should_end_session = False
+    return build_response({}, build_speechlet_response(
+    card_title, speech_output, reprompt_text, should_end_session))               
+    
+        
+def code_of_conduct():
+   card_title= "Code of Business Conduct"
+   speech_output= "Some principles of our code of conduct include" \
+                   "non-discrimination policies and privacy laws. " \
+                   "Also, please refrain from chest bumping of any sort " \
+                   "as that can be deemed inappropriate depending on the employee"
+                   
+   reprompt_text = "Hello? Are you still there? What else would you like" \
+                   "to learn about?"
+  
+   should_end_session = False
+   return build_response({}, build_speechlet_response(
+   card_title, speech_output, reprompt_text, should_end_session))  
+   
+def employee_handbook():
+    card_title= "Employee Handbook"
+    speech_output= "T-Mobile's employee's handbook can be found on twitter. " \
+                   "It is a short read with a brief 140 characters."
+    reprompt_text = "Hello? Are you still there? What else would you like" \
+                   "to learn about?"
+  
+    should_end_session = False
+    return build_response({}, build_speechlet_response(
+    card_title, speech_output, reprompt_text, should_end_session))
+    
+def company_culture():
+    card_title= "Our Culture"
+    speech_output = "T Mobile's ocmpany culture is best exemplified by our CEO, John Legere " \
+                    "He swears a lot and wears magenta converse" \
+                    "In other words, we're a lot cooler than Verizon. "
+    reprompt_text = "Hello? Are you still there? What else would you like" \
+                    "to learn about?"
+
+    should_end_session = False
+    return build_response({}, build_speechlet_response(
+    card_title, speech_output, reprompt_text, should_end_session))
+    
+def diversity_inclusion():
+    card_title= "Diversity and Inclusion"
+    speech_output= "If you turn everyone Magenta, you don't need to worry about diversity. Exclamation mark. Because I can't sound enthusiastic."
+
+    should_end_session = False
+    return build_response({}, build_speechlet_response(
+    card_title, speech_output, reprompt_text, should_end_session))
+    
+def talent_referral():
+    card_title= "Talent Referral"
+    speech_output= "To clone and refer yourself, thereby doubling your paycheck, please discuss your options with John Legere's ego on the 50th floor of Newport Five."
+
+    should_end_session = False
+    return build_response({}, build_speechlet_response(
+    card_title, speech_output, reprompt_text, should_end_session))   
+    
+def wireless_network():
+    card_title= "Wireless network"
+    speech_output= "All that you need to know is that our network is the best network. Not Verizon's. Ours."
+
+    should_end_session = False
+    return build_response({}, build_speechlet_response(
+    card_title, speech_output, reprompt_text, should_end_session))
+    
+def employee_recognition():
+    card_title= "Employee Recognition"
+    speech_output= "Wow, the team that made this product is so cool!"
+
+    should_end_session = False
+    return build_response({}, build_speechlet_response(
+    card_title, speech_output, reprompt_text, should_end_session))
+    
+def development_resources():
+    card_title= "Develop Resources"
+    speech_output= "Our resources don't need development. I'm a strong independent AI, leave me alone."
+
+    should_end_session = False
+    return build_response({}, build_speechlet_response(
+    card_title, speech_output, reprompt_text, should_end_session))
+
+def Profesisonal_Standards_Training():
+    card_title= "Pro_Standards_Training"
+    speech_output= "I see you are wanting to know more about our " \
+                    "fantastic Professional Standards Training Program. "
+
+    should_end_session = False
+    return build_response({}, build_speechlet_response(
+    card_title, speech_output, reprompt_text, should_end_session))
+    
+def Learning_Resources():
+    card_title= "Learning_res"
+    speech_output= "I see you want to learn more about Learn Resources. " \
+                    "Am I not enough? "
+
+    should_end_session = False
+    return build_response({}, build_speechlet_response(
+    card_title, speech_output, reprompt_text, should_end_session))
+    
+def Accelerate_My_Performance():
+    card_title= "AccelTime"
+    speech_output= "I see you are interested in accelerating your own performance. " \
+                    "The first step would be to swithc from Verizon to T Mobile... There is no step 2. "
+
+    should_end_session = False
+    return build_response({}, build_speechlet_response(
+    card_title, speech_output, reprompt_text, should_end_session))
+    
+def Employee_Expectations():
+    card_title= "employ_expect"
+    speech_output= "I see you are wanting to know more about " \
+                    "Employee Expectations. You are expected to make us money and not get in trouble "
+
+    should_end_session = False
+    return build_response({}, build_speechlet_response(
+    card_title, speech_output, reprompt_text, should_end_session))
+    
+def TMUS_Policies():
+    card_title= "Pro_Standards_Training"
+    speech_output= "I see you are wanting to know more about our " \
+                    "fantastic Professional Standards Training Program. "
+
+    should_end_session = False
+    return build_response({}, build_speechlet_response(
+    card_title, speech_output, reprompt_text, should_end_session))
+    
+    
+def Complaints_and_Incidents():
+    card_title= "Pro_Standards_Training"
+    speech_output= "I see you are interested in complaining about something. " \
+                    "There will be no complaining. "
+
+    should_end_session = False
+    return build_response({}, build_speechlet_response(
+    card_title, speech_output, reprompt_text, should_end_session))
+    
 # --------------- Events ------------------
 
 def on_session_started(session_started_request, session):
@@ -251,6 +413,42 @@ def on_intent(intent_request, session):
         return top_level_menu(intent, session)
     elif intent_name == "TimeKeepingIntent":
         return give_information_time_keeping(session)
+    elif intent_name == "LearningResourcesIntent":
+        return learning_resource()
+    elif intent_name == "ComplaintIntent":
+        return complaints_and_incidents()
+    elif intent_name  == "accelerateMyPerformanceIntent":
+        return Accelerate_My_Performance()
+    elif intent_name == "codeOfconductIntent":
+        return code_of_conduct()
+    elif intent_name == "companyCultureIntent":
+        return company_culture()
+    elif intent_name == "employeeExpectationsIntent":
+        return Employee_Expectations()
+    elif intent_name == "diversityInclusionIntent":
+        return diversity_inclusion()
+    elif intent_name == "talentReferralIntent":
+        return talent_referral()
+    elif intent_name == "wirelessIntent":
+        return wireless_network()
+    elif intent_name == "employeeRecognitionIntent":
+        return employee_recognition()
+    elif intent_name == "retirementIntent":
+        return retirement()
+    elif intent_name == "CodeOfConductIntent":
+        return code_of_conduct()
+    elif intent_name == "EmpHandbookIntent":
+        return employee_Handbook()
+    elif intent_name == "ComapnyCultureIntent":
+        return company_culture()
+    elif intent_name == "diversityIntent":
+        return diversity_inclusion()
+    elif intent_name == "talentIntent":
+        return talent_referral()
+    elif intent_name == "empRecogIntent":
+        return employee_recognition()
+    elif intent_name == "EmployeeBenifitsIntent":
+        return employee_benefits()
     elif intent_name == "emailInfoIntent":
         return email_information(session)
     elif intent_name == "GettingStartedIntent":
