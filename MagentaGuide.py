@@ -487,6 +487,8 @@ def on_intent(intent_request, session):
         return middle_anymore_info()
     elif intent_name == "giveInformationIntentDisco":
         return give_information_disco(session)
+    elif intent_name == "continueIntent":
+        return middle_anymore_info()
     elif intent_name == "AMAZON.HelpIntent":
         return helper()
     elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":
