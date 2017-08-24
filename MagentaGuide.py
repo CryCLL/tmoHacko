@@ -6,6 +6,7 @@ from __future__ import print_function
 import smtplib
 #Name, email, id
 user = ("Joseph Koblitz", "Joseph.Koblitz1@T-Mobile.com","123456")
+#user = ("Leo Liu", "Leo.Liu7@T-Mobile.com","123456")
 #subject,link,body
 email = ["","",""]
 
@@ -127,7 +128,8 @@ def give_information_disco(session):
 
     should_end_session = False
 
-    session_attributes['email'] = ["Employee Discount Information","https://tmobileusa.sharepoint.com/sites/humanresources/Pages/EmployeeDiscounts.aspx#topic_1","Here's the information you requested: "]
+    session_attributes['email'] = ["Employee Discount Information","https://tmobileusa.sharepoint.com/sites/humanresources/Pages/EmployeeDiscounts.aspx#topic_1", \
+                                    "\n\nHere's the information you requested: ", "If you require more asisstance, please contact the EIT or Help Desk. "]
 
     return build_response(session_attributes, build_speechlet_response(
     card_title, speech_output, None, should_end_session))
@@ -147,7 +149,8 @@ def give_information_time_keeping(session):
     reprompt_text = "Are you still there? "
     should_end_session = False
 
-    session_attributes['email'] = ["Time Keeping Follow-up","https://t-mobile.csod.com/LMS/catalog/Welcome.aspx?tab_page_id=-67&tab_id=-1","Here's the information you requested: "]
+    session_attributes['email'] = ["Time Keeping Information","https://employeecare.t-mobile.com/hc/en-us/articles/115005758868-Kronos-Overview-Access?flash_digest=b6899f54d7ddaab4c8447bccdfa70d595bfc586e",\
+                                    "\n\nHere's the information you requested: ", " If you need more help, please contact the EIT or Help Desk. "]
 
     return build_response(session_attributes, build_speechlet_response(
     card_title, speech_output, reprompt_text, should_end_session))
@@ -165,7 +168,7 @@ def email_information(session):
 	                "to learn about?"
 
     email=session_attributes['email']
-    send_email([user[1]],email[0], email[2]+email[1])
+    send_email([user[1]],email[0], email[3]+email[2]+email[1])
 
     should_end_session = False
 
@@ -174,7 +177,7 @@ def email_information(session):
 
 def helper():
     card_title = "Help"
-    speech_output = "No help will be given. Farewell."
+    speech_output = "If you require more asisstance, please contact the EIT or Help Desk."
 
     should_end_session = True
     return build_response({}, build_speechlet_response(
@@ -206,12 +209,13 @@ def top_level_menu(intent, session):
     reprompt_text = None
 
     speech_output = "I'm not sure what you want to know. " \
-                    "You can say, the topic I want to know is employee discounts."
+                    "You can say, the topic I want to know is employee discounts or time keeping."
     should_end_session = False
 
     return build_response(session_attributes, build_speechlet_response(
         intent['name'], speech_output, reprompt_text, should_end_session))
-
+        
+    
 
 # --------------- Events ------------------
 
