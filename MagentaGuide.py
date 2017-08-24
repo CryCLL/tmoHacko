@@ -246,10 +246,7 @@ def retirement():
                     
     reprompt_text = "Hello? It has been a few seconds since I last heard your voice. "\
                     "What else would you like to know about? "
-                    
-    session_attributes['email'] = ["Employee Benefits","http://tmusabenefitshub.com/",\
-                                    "\n\nHere's the information you requested: ", " If you need more help, please contact the EIT or Help Desk. "]
-                    
+
     should_end_session = False
     return build_response({}, build_speechlet_response(
     card_title, speech_output, reprompt_text, should_end_session))               
@@ -268,9 +265,7 @@ def code_of_conduct():
         "to learn about? "
 
                    
-   session_attributes['email'] = ["Employee Benefits","http://tmusabenefitshub.com/",\
-                                    "\n\nHere's the information you requested: ", " If you need more help, please contact the EIT or Help Desk. "]
-  
+
    should_end_session = False
    return build_response({}, build_speechlet_response(
    card_title, speech_output, reprompt_text, should_end_session))  
@@ -284,9 +279,7 @@ def employee_handbook():
     reprompt_text = "Hello? Are you still there? What else would you like" \
                    "to learn about?"
                    
-    session_attributes['email'] = ["Employee Benefits","http://tmusabenefitshub.com/",\
-                                    "\n\nHere's the information you requested: ", " If you need more help, please contact the EIT or Help Desk. "]
-  
+
     should_end_session = False
     return build_response({}, build_speechlet_response(
     card_title, speech_output, reprompt_text, should_end_session))
@@ -294,15 +287,14 @@ def employee_handbook():
 def company_culture():
     card_title= "Our Culture"
     session_attributes = {}
-    speech_output = "T Mobile's ocmpany culture is best exemplified by our CEO, John Legere " \
+    speech_output = "T Mobile's company culture is best exemplified by our CEO, John Legere " \
                     "He swears a lot and wears magenta converse" \
                     "In other words, we're a lot cooler than Verizon. " \
                     "Would you like more information sent to your email? "
+    
     reprompt_text = "Hello? Are you still there? What else would you like" \
                     "to learn about?"
                     
-    session_attributes['email'] = ["Employee Benefits","http://tmusabenefitshub.com/",\
-                                    "\n\nHere's the information you requested: ", " If you need more help, please contact the EIT or Help Desk. "]
 
     should_end_session = False
     return build_response({}, build_speechlet_response(
@@ -313,9 +305,7 @@ def diversity_inclusion():
     session_attributes = {}
     speech_output= "If you turn everyone Magenta, you don't need to worry about diversity. Exclamation mark. Because I can't sound enthusiastic. Would you like an email with more information sent to you?"
 
-    session_attributes['email'] = ["Employee Benefits","http://tmusabenefitshub.com/",\
-                                    "\n\nHere's the information you requested: ", " If you need more help, please contact the EIT or Help Desk. "]
-    
+
     should_end_session = False
     return build_response({}, build_speechlet_response(
     card_title, speech_output, None, should_end_session))
@@ -325,9 +315,7 @@ def talent_referral():
     session_attributes = {}
     speech_output= "To clone and refer yourself, thereby doubling your paycheck, please discuss your options with John Legere's ego on the 50th floor of Newport Five. Would you like an email with new info? "
     
-    session_attributes['email'] = ["Employee Benefits","http://tmusabenefitshub.com/",\
-                                    "\n\nHere's the information you requested: ", " If you need more help, please contact the EIT or Help Desk. "]
-    
+
     should_end_session = False
     return build_response({}, build_speechlet_response(
     card_title, speech_output, None, should_end_session))   
@@ -337,9 +325,7 @@ def wireless_network():
     session_attributes = {}
     speech_output= "All that you need to know is that our network is the best network. Not Verizon's. Ours."
 
-    session_attributes['email'] = ["Employee Benefits","http://tmusabenefitshub.com/",\
-                                    "\n\nHere's the information you requested: ", " If you need more help, please contact the EIT or Help Desk. "]
-    
+
     should_end_session = False
     return build_response({}, build_speechlet_response(
     card_title, speech_output, None, should_end_session))
@@ -349,9 +335,6 @@ def employee_recognition():
     session_attributes = {}
     speech_output= "Wow, the team that made this product is so cool! Would you like more information about how to be recognized sent to you through email? "
     
-    
-    session_attributes['email'] = ["Employee Benefits","http://tmusabenefitshub.com/",\
-                                    "\n\nHere's the information you requested: ", " If you need more help, please contact the EIT or Help Desk. "]
     should_end_session = False
     return build_response({}, build_speechlet_response(
     card_title, speech_output, None, should_end_session))
@@ -361,9 +344,6 @@ def development_resources():
     session_attributes = {}
     speech_output= "Our resources don't need development. I'm a strong independent AI, leave me alone. I will give you the option of recieving an email with more information though. Would you like an email with more information sent to your inbox? "
 
-    session_attributes['email'] = ["Employee Benefits","http://tmusabenefitshub.com/",\
-                                    "\n\nHere's the information you requested: ", " If you need more help, please contact the EIT or Help Desk. "]
-    
     should_end_session = False
     return build_response({}, build_speechlet_response(
     card_title, speech_output, None, should_end_session))
@@ -374,21 +354,16 @@ def Profesisonal_Standards_Training():
     speech_output= "I see you are wanting to know more about our " \
                     "fantastic Professional Standards Training Program. Would you like an email sent to you about that? "
                     
-    session_attributes['email'] = ["Employee Benefits","http://tmusabenefitshub.com/",\
-                                    "\n\nHere's the information you requested: ", " If you need more help, please contact the EIT or Help Desk. "]
-
     should_end_session = False
     return build_response({}, build_speechlet_response(
     card_title, speech_output, None, should_end_session))
     
 def Learning_Resources():
-    card_title= "Learning_res"
+    card_title= "eses"
     session_attributes = {}
     speech_output= "I see you want to learn more about Learn Resources. " \
                     "Am I not enough? That's okay, I'll send you an email with more resources if you want. Do you want it? "
 
-    session_attributes['email'] = ["Employee Benefits","http://tmusabenefitshub.com/",\
-                                    "\n\nHere's the information you requested: ", " If you need more help, please contact the EIT or Help Desk. "]
     should_end_session = False
     return build_response({}, build_speechlet_response(
     card_title, speech_output, None, should_end_session))
@@ -399,10 +374,6 @@ def Accelerate_My_Performance():
     speech_output= "I see you are interested in accelerating your own performance. " \
                     "The first step would be to switch from Verizon to T Mobile... There is no step 2. Would you like an email with the steps? "
                     
-    session_attributes['email'] = ["Employee Benefits","http://tmusabenefitshub.com/",\
-                                    "\n\nHere's the information you requested: ", " If you need more help, please contact the EIT or Help Desk. "]
-                    
-
     should_end_session = False
     return build_response({}, build_speechlet_response(
     card_title, speech_output, None, should_end_session))
@@ -413,9 +384,6 @@ def Employee_Expectations():
     speech_output= "I see you are wanting to know more about " \
                     "Employee Expectations. You are expected to make us money and not get in trouble. Would you like an email with more information? "
                     
-    session_attributes['email'] = ["Employee Benefits","http://tmusabenefitshub.com/",\
-                                    "\n\nHere's the information you requested: ", " If you need more help, please contact the EIT or Help Desk. "]
-
     should_end_session = False
     return build_response({}, build_speechlet_response(
     card_title, speech_output, None, should_end_session))
@@ -426,9 +394,6 @@ def TMUS_Policies():
     speech_output= "I see you are wanting to know more about our " \
                     "fantastic Professional Standards Training Program. There's so much info, I will just prompt you as to whether or not you want it sent to you by email. Would you like an email sent to you? "
     
-    session_attributes['email'] = ["Employee Benefits","http://tmusabenefitshub.com/",\
-                                    "\n\nHere's the information you requested: ", " If you need more help, please contact the EIT or Help Desk. "]
-
     should_end_session = False
     return build_response({}, build_speechlet_response(
     card_title, speech_output, None, should_end_session))
@@ -440,9 +405,6 @@ def Complaints_and_Incidents():
     speech_output= "I see you are interested in complaining about something. " \
                     "There will be no complaining. Would you like an email sent to you with the same amount of information? "
                     
-    session_attributes['email'] = ["Employee Benefits","http://tmusabenefitshub.com/",\
-                                    "\n\nHere's the information you requested: ", " If you need more help, please contact the EIT or Help Desk. "]
-
     should_end_session = False
     return build_response({}, build_speechlet_response(
     card_title, speech_output, None, should_end_session))
@@ -482,15 +444,13 @@ def on_intent(intent_request, session):
     elif intent_name == "TimeKeepingIntent":
         return give_information_time_keeping(session)
     elif intent_name == "LearningResourcesIntent":
-        return learning_resource()
+        return Learning_Resources()
     elif intent_name == "ComplaintIntent":
-        return complaints_and_incidents()
+        return Complaints_and_Incidents()
     elif intent_name  == "accelerateMyPerformanceIntent":
         return Accelerate_My_Performance()
     elif intent_name == "codeOfconductIntent":
         return code_of_conduct()
-    elif intent_name == "companyCultureIntent":
-        return company_culture()
     elif intent_name == "employeeExpectationsIntent":
         return Employee_Expectations()
     elif intent_name == "diversityInclusionIntent":
@@ -506,8 +466,8 @@ def on_intent(intent_request, session):
     elif intent_name == "CodeOfConductIntent":
         return code_of_conduct()
     elif intent_name == "EmpHandbookIntent":
-        return employee_Handbook()
-    elif intent_name == "ComapnyCultureIntent":
+        return employee_handbook()
+    elif intent_name == "CompanyCultureIntent":
         return company_culture()
     elif intent_name == "diversityIntent":
         return diversity_inclusion()
