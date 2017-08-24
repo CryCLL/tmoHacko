@@ -7,7 +7,7 @@ import smtplib
 #Name, email, id
 user = ("Joseph Koblitz", "Joseph.Koblitz1@T-Mobile.com","123456")
 #subject,link,body
-email = ("","","")
+email = ["","",""]
 
 # --------------- Email handler -----------------
 def send_email(email, subject, message):
@@ -17,15 +17,15 @@ def send_email(email, subject, message):
 
     sent_from = "faketmobileofficialemail@gmail.com"
     to = email
-    subject_line = "Subject: " + subject
-    body = message
+    #subject_line = subject
+    #body = message
 
     email_text = """
 From: {}
 To: {}
-{}
+Subject: {}
 
-{}""".format(sent_from, ", ".join(to), subject_line, subject_line+body)
+{}""".format(sent_from, ", ".join(to), subject, message)
     smtpObj.login(sent_from, 'tmobileis3real5me')
     smtpObj.sendmail(sent_from, to[0], email_text)
     smtpObj.quit()
@@ -114,10 +114,14 @@ def handle_session_end_request():
     return build_response({}, build_speechlet_response(
         card_title, speech_output, None, should_end_session))
 
-def give_information_disco():
+def give_information_disco(session):
     """
         Alexa gives user information about discounts
     """
+    try:
+        session_attributes = session['attributes']
+    except:
+        session_attributes = {}
     card_title = "Giving Information"
     speech_output = "I see you wanted to know about employee discounts. " \
 					"Well, everyone gets 200% off everything. " \
@@ -125,11 +129,19 @@ def give_information_disco():
 					"If you would like more information, please say yes and I will email the link to you. "
 
     should_end_session = False
-    return build_response({}, build_speechlet_response(
+
+    session_attributes['email'] = ["Time Keeping Follow-up","https://t-mobile.csod.com/LMS/catalog/Welcome.aspx?tab_page_id=-67&tab_id=-1","Here's the information you requested: "]
+
+    return build_response(session_attributes, build_speechlet_response(
     card_title, speech_output, None, should_end_session))
 
 
-def give_information_time_keeping():
+def give_information_time_keeping(session):
+
+    try:
+        session_attributes = session['attributes']
+    except:
+        session_attributes = {}
     card_title = "Time-Keeping"
     speech_output = "To log your hours, look for the Kronos desktop application. " \
                     "You can stamp your time card virtually on the right corner to log in and out. " \
@@ -138,50 +150,55 @@ def give_information_time_keeping():
     reprompt_text = "Are you still there? "
     should_end_session = False
 
-    email = ("Time Keeping Follow-up","https://t-mobile.csod.com/LMS/catalog/Welcome.aspx?tab_page_id=-67&tab_id=-1","Here's the information you requested: ")
+    session_attributes['email'] = ["Time Keeping Follow-up","https://t-mobile.csod.com/LMS/catalog/Welcome.aspx?tab_page_id=-67&tab_id=-1","Here's the information you requested: "]
 
+    return build_response(session_attributes, build_speechlet_response(
+    card_title, speech_output, reprompt_text, should_end_session))
+
+def email_information(session):
+    try:
+        session_attributes = session['attributes']
+    except:
+        session_attributes = {}
+    speech_output = "I have sent a link to you about more information. " \
+					"Please check your inbox in 5 seconds or more. " \
+					"What else would you like to learn about?"
+    card_title = "Email Link"
+    reprompt_text = "Hello? Are you still there? What else would you like" \
+	                "to learn about?"
+
+    email=session_attributes['email']
+    send_email([user[1]],email[0], email[2]+email[1])
+
+    should_end_session = False
+    
     return build_response({}, build_speechlet_response(
     card_title, speech_output, reprompt_text, should_end_session))
 
-def email_information():
-	card_title = "Email Link"
-	speech_output = "I have sent a link to you about more information. " \
-					"Please check your inbox in 5 seconds or more. " \
-					"What else would you like to learn about?"
-	reprompt_text = "Hello? Are you still there? What else would you like" \
-	                "to learn about?"
-
-	send_email([user[1]],email[0], email[2]+email[1])
-
-	should_end_session = False
-
-	return build_response({}, build_speechlet_response(
-    card_title, speech_output, reprompt_text, should_end_session))
-
 def helper():
-	card_title = "Help"
-	speech_output = "No help will be given. Farewell."
+    card_title = "Help"
+    speech_output = "No help will be given. Farewell."
 
-	should_end_session = True
-	return build_response({}, build_speechlet_response(
-        card_title, speech_output, None, should_end_session))
+    should_end_session = True
+    return build_response({}, build_speechlet_response(
+    card_title, speech_output, None, should_end_session))
 
 def thatIsAll():
-	card_title = "Farewell"
-	speech_output = "Have a great time at T Mobile!"
+    card_title = "Farewell"
+    speech_output = "Have a great time at T Mobile!"
 
-	should_end_session = True
-	return build_response({}, build_speechlet_response(
+    should_end_session = True
+    return build_response({}, build_speechlet_response(
         card_title, speech_output, None, should_end_session))
 
 def middle_anymore_info():
-	card_title = "Just Asking Anymore"
-	speech_output = "Go ahead and ask about anything else you would" \
+    card_title = "Just Asking Anymore"
+    speech_output = "Go ahead and ask about anything else you would" \
 					"like to know more about!"
 
-	reprompt_text = "Is anyone still there?"
-	should_end_session = False
-	return build_response({}, build_speechlet_response(
+    reprompt_text = "Is anyone still there?"
+    should_end_session = False
+    return build_response({}, build_speechlet_response(
     card_title, speech_output, reprompt_text, should_end_session))
 
 def top_level_menu(intent, session):
@@ -203,7 +220,6 @@ def top_level_menu(intent, session):
 
 def on_session_started(session_started_request, session):
     """ Called when the session starts """
-
     print("on_session_started requestId=" + session_started_request['requestId']
           + ", sessionId=" + session['sessionId'])
 
@@ -221,7 +237,7 @@ def on_launch(launch_request, session):
 
 def on_intent(intent_request, session):
     """ Called when the user specifies an intent for this skill """
-
+    
     print("on_intent requestId=" + intent_request['requestId'] +
           ", sessionId=" + session['sessionId'])
 
@@ -233,9 +249,9 @@ def on_intent(intent_request, session):
     if intent_name == "askingIntent":
         return top_level_menu(intent, session)
     elif intent_name == "TimeKeepingIntent":
-        return give_information_time_keeping()
+        return give_information_time_keeping(session)
     elif intent_name == "emailInfoIntent":
-        return email_information()
+        return email_information(session)
     elif intent_name == "GettingStartedIntent":
         return getting_started()
     elif intent_name == "thatIsAllIntent":
@@ -243,7 +259,7 @@ def on_intent(intent_request, session):
     elif intent_name == "middle_anymore":
         return middle_anymore_info()
     elif intent_name == "giveInformationIntentDisco":
-        return give_information_disco()
+        return give_information_disco(session)
     elif intent_name == "AMAZON.HelpIntent":
         return helper()
     elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":
