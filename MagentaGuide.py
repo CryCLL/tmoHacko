@@ -17,17 +17,14 @@ def send_email(email, subject, message):
 
     sent_from = "faketmobileofficialemail@gmail.com"
     to = email
-    #subject_line = subject
-    #body = message
 
-    email_text = """
-From: {}
+    email_text = """From: {}
 To: {}
 Subject: {}
 
 {}""".format(sent_from, ", ".join(to), subject, message)
-    smtpObj.login(sent_from, 'tmobileis3real5me')
-    smtpObj.sendmail(sent_from, to[0], email_text)
+    smtpObj.login('faketmobileofficialemail@gmail.com', 'tmobileis3real5me')
+    smtpObj.sendmail(sent_from, to[0],email_text)
     smtpObj.quit()
 
 
@@ -130,7 +127,7 @@ def give_information_disco(session):
 
     should_end_session = False
 
-    session_attributes['email'] = ["Time Keeping Follow-up","https://t-mobile.csod.com/LMS/catalog/Welcome.aspx?tab_page_id=-67&tab_id=-1","Here's the information you requested: "]
+    session_attributes['email'] = ["Employee Discount Information","https://tmobileusa.sharepoint.com/sites/humanresources/Pages/EmployeeDiscounts.aspx#topic_1","Here's the information you requested: "]
 
     return build_response(session_attributes, build_speechlet_response(
     card_title, speech_output, None, should_end_session))
@@ -171,7 +168,7 @@ def email_information(session):
     send_email([user[1]],email[0], email[2]+email[1])
 
     should_end_session = False
-    
+
     return build_response({}, build_speechlet_response(
     card_title, speech_output, reprompt_text, should_end_session))
 
@@ -237,7 +234,7 @@ def on_launch(launch_request, session):
 
 def on_intent(intent_request, session):
     """ Called when the user specifies an intent for this skill """
-    
+
     print("on_intent requestId=" + intent_request['requestId'] +
           ", sessionId=" + session['sessionId'])
 

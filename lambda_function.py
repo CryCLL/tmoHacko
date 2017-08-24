@@ -1,16 +1,32 @@
 """
-This sample demonstrates a simple skill built with the Amazon Alexa Skills Kit.
-The Intent Schema, Custom Slots, and Sample Utterances for this skill, as well
-as testing instructions are located at http://amzn.to/1LzFrj6
-
-For additional samples, visit the Alexa Skills Kit Getting Started guide at
-http://amzn.to/1LGWsLG
+Tmo Hackathon: Alexa Guide for Onboarding
 """
 
 from __future__ import print_function
-import requests
-# http://stackabuse.com/how-to-send-emails-with-gmail-using-python/
 import smtplib
+#Name, email, id
+user = ("Joseph Koblitz", "Joseph.Koblitz1@T-Mobile.com","123456")
+#subject,link,body
+email = ["","",""]
+
+# --------------- Email handler -----------------
+def send_email(email, subject, message):
+    """Sends email to employee"""
+    smtpObj = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+    smtpObj.ehlo()
+
+    sent_from = "faketmobileofficialemail@gmail.com"
+    to = email
+
+    email_text = """From: {}
+To: {}
+Subject: {}
+
+{}""".format(sent_from, ", ".join(to), subject, message)
+    smtpObj.login('faketmobileofficialemail@gmail.com', 'tmobileis3real5me')
+    smtpObj.sendmail(sent_from, to[0],email_text)
+    smtpObj.quit()
+
 
 
 # --------------- Helpers that build all of the responses ----------------------
@@ -47,120 +63,152 @@ def build_response(session_attributes, speechlet_response):
 # --------------- Functions that control the skill's behavior ------------------
 
 def get_welcome_response():
-    """ If we wanted to initialize the session to have some attributes we could
-    add those here
+    """ Alexa enters the guide. Prompts user if they understand
     """
 
     session_attributes = {}
     card_title = "Welcome"
-    speech_output = "Welcome to the Alexa Skills Kit sample. " \
-                    "Please tell me your favorite color by saying, " \
-                    "my favorite color is red"
-    # If the user either does not reply to the welcome message or says something
-    # that is not understood, they will be prompted again with this text.
-    reprompt_text = "Please tell me your favorite color by saying, " \
-                    "my favorite color is red."
+    speech_output = "Welcome to the T Mobile Magenta Guide. " \
+                    "I will now walk you through the steps to becoming a successful employee... " \
+                    "First, let's get you logged into your company laptop. " \
+                    "Please log in with your given NT ID and password. " \
+                    "If you do not have your log in information, please contact " \
+                    "your manager. Once you have finished, say get started or i'm ready "\
+                    "to ask me any questions. "
+
+    reprompt_text = "Are you still there?"
     should_end_session = False
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
 
 
+def getting_started():
+    """
+        Alexa says this when the user understands
+    """
+
+    card_title= "Getting Started"
+    speech_output ="To get started, ask me questions about your first day " \
+                    "for example, you can ask me about benefits like employee discounts or time keeping."
+
+    reprompt_text = "Are you still there"
+
+    should_end_session = False
+
+    return build_response({}, build_speechlet_response(
+    card_title, speech_output, reprompt_text, should_end_session))
+
+
 def handle_session_end_request():
+    """
+        Alexa leaves you.
+    """
     card_title = "Session Ended"
-    speech_output = "Thank you for trying the Alexa Skills Kit sample. " \
+    speech_output = "Thank you for trying the Magenta Guide. " \
                     "Have a nice day! "
     # Setting this to true ends the session and exits the skill.
     should_end_session = True
     return build_response({}, build_speechlet_response(
         card_title, speech_output, None, should_end_session))
 
-
-def create_favorite_color_attributes(favorite_color):
-    return {"favoriteColor": favorite_color}
-
-
-def set_color_in_session(intent, session):
-    """ Sets the color in the session and prepares the speech to reply to the
-    user.
+def give_information_disco(session):
     """
+        Alexa gives user information about discounts
+    """
+    try:
+        session_attributes = session['attributes']
+    except:
+        session_attributes = {}
+    card_title = "Giving Information"
+    speech_output = "I see you wanted to know about employee discounts. " \
+					"Well, everyone gets 200% off everything. " \
+					"That is right, we give you the cost of the item to take it away. " \
+					"If you would like more information, please say yes and I will email the link to you. "
 
-    card_title = intent['name']
-    session_attributes = {}
     should_end_session = False
-    """
-    if 'Color' in intent['slots']:
-        favorite_color = intent['slots']['Color']['value']
-        session_attributes = create_favorite_color_attributes(favorite_color)
-        speech_output = "I now know your favorite color is " + \
-                        favorite_color + \
-                        ". You can ask me your favorite color by saying, " \
-                        "what's my favorite color?"
-        reprompt_text = "You can ask me your favorite color by saying, " \
-                        "what's my favorite color?"
-    else:
-        speech_output = "I'm not sure what your favorite color is. " \
-                        "Please try again."
-        reprompt_text = "I'm not sure what your favorite color is. " \
-                        "You can tell me your favorite color by saying, " \
-                        "my favorite color is red."
-    """
 
-    """
-    r = requests.get('https://api.github.com', auth=('user', 'pass'))
-    >>> r.status_code
-    204
-    >>> r.headers['content-type']
-    'application/json'
-    >>> r.text
-    """
-
-
-    r = requests.get('https://learning.t-mobile.com/econtent/un/OTD/OneVoice/NEO/index.html')
-
-    speech_output = str(r.text[:1000])
-    reprompt_text = "You can ask me your favorite color by saying, " \
-                        "what's my favorite color?"
-
-
-    smtpObj = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-    smtpObj.ehlo();
-
-    sent_from = "faketmobileofficialemail@gmail.com"
-    to = ['Joseph.Koblitz1@T-Mobile.com']
-    subject = 'Subject: OMG Super Important Message'
-    body = "Hey, what's up?\n\n- You"
-
-    email_text = """
-From: {}
-To: {}
-{}
-
-{}""".format(sent_from, ", ".join(to), subject, subject+body)
-    smtpObj.login(sent_from, 'tmobileis3real5me')
-    smtpObj.sendmail(sent_from, to[0], email_text)
-    smtpObj.quit()
+    session_attributes['email'] = ["Employee Discount Information","https://tmobileusa.sharepoint.com/sites/humanresources/Pages/EmployeeDiscounts.aspx#topic_1","Here's the information you requested: "]
 
     return build_response(session_attributes, build_speechlet_response(
-        card_title, speech_output, reprompt_text, should_end_session))
+    card_title, speech_output, None, should_end_session))
 
 
-def get_color_from_session(intent, session):
+def give_information_time_keeping(session):
+
+    try:
+        session_attributes = session['attributes']
+    except:
+        session_attributes = {}
+    card_title = "Time-Keeping"
+    speech_output = "To log your hours, look for the Kronos desktop application. " \
+                    "You can stamp your time card virtually on the right corner to log in and out. " \
+                    "If you would like more information, please say yes and I will email the link to you. "
+
+    reprompt_text = "Are you still there? "
+    should_end_session = False
+
+    session_attributes['email'] = ["Time Keeping Follow-up","https://t-mobile.csod.com/LMS/catalog/Welcome.aspx?tab_page_id=-67&tab_id=-1","Here's the information you requested: "]
+
+    return build_response(session_attributes, build_speechlet_response(
+    card_title, speech_output, reprompt_text, should_end_session))
+
+def email_information(session):
+    try:
+        session_attributes = session['attributes']
+    except:
+        session_attributes = {}
+    speech_output = "I have sent a link to you about more information. " \
+					"Please check your inbox in 5 seconds or more. " \
+					"What else would you like to learn about?"
+    card_title = "Email Link"
+    reprompt_text = "Hello? Are you still there? What else would you like" \
+	                "to learn about?"
+
+    email=session_attributes['email']
+    send_email([user[1]],email[0], email[2]+email[1])
+
+    should_end_session = False
+
+    return build_response({}, build_speechlet_response(
+    card_title, speech_output, reprompt_text, should_end_session))
+
+def helper():
+    card_title = "Help"
+    speech_output = "No help will be given. Farewell."
+
+    should_end_session = True
+    return build_response({}, build_speechlet_response(
+    card_title, speech_output, None, should_end_session))
+
+def thatIsAll():
+    card_title = "Farewell"
+    speech_output = "Have a great time at T Mobile!"
+
+    should_end_session = True
+    return build_response({}, build_speechlet_response(
+        card_title, speech_output, None, should_end_session))
+
+def middle_anymore_info():
+    card_title = "Just Asking Anymore"
+    speech_output = "Go ahead and ask about anything else you would" \
+					"like to know more about!"
+
+    reprompt_text = "Is anyone still there?"
+    should_end_session = False
+    return build_response({}, build_speechlet_response(
+    card_title, speech_output, reprompt_text, should_end_session))
+
+def top_level_menu(intent, session):
+    """
+        Alexa says this if she doesn't understand you
+    """
     session_attributes = {}
     reprompt_text = None
 
-    if session.get('attributes', {}) and "favoriteColor" in session.get('attributes', {}):
-        favorite_color = session['attributes']['favoriteColor']
-        speech_output = "Your favorite color is " + favorite_color + \
-                        ". Goodbye."
-        should_end_session = True
-    else:
-        speech_output = "I'm not sure what your favorite color is. " \
-                        "You can say, my favorite color is red."
-        should_end_session = False
+    speech_output = "I'm not sure what you want to know. " \
+                    "You can say, the topic I want to know is employee discounts."
+    should_end_session = False
 
-    # Setting reprompt_text to None signifies that we do not want to reprompt
-    # the user. If the user does not respond or says something that is not
-    # understood, the session will end.
     return build_response(session_attributes, build_speechlet_response(
         intent['name'], speech_output, reprompt_text, should_end_session))
 
@@ -169,7 +217,6 @@ def get_color_from_session(intent, session):
 
 def on_session_started(session_started_request, session):
     """ Called when the session starts """
-
     print("on_session_started requestId=" + session_started_request['requestId']
           + ", sessionId=" + session['sessionId'])
 
@@ -195,12 +242,23 @@ def on_intent(intent_request, session):
     intent_name = intent_request['intent']['name']
 
     # Dispatch to your skill's intent handlers
-    if intent_name == "getWebPageIntent":
-        return set_color_in_session(intent, session)
-    elif intent_name == "WhatsMyColorIntent":
-        return get_color_from_session(intent, session)
+
+    if intent_name == "askingIntent":
+        return top_level_menu(intent, session)
+    elif intent_name == "TimeKeepingIntent":
+        return give_information_time_keeping(session)
+    elif intent_name == "emailInfoIntent":
+        return email_information(session)
+    elif intent_name == "GettingStartedIntent":
+        return getting_started()
+    elif intent_name == "thatIsAllIntent":
+        return thatIsAll()
+    elif intent_name == "middle_anymore":
+        return middle_anymore_info()
+    elif intent_name == "giveInformationIntentDisco":
+        return give_information_disco(session)
     elif intent_name == "AMAZON.HelpIntent":
-        return get_welcome_response()
+        return helper()
     elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":
         return handle_session_end_request()
     else:
@@ -215,9 +273,6 @@ def on_session_ended(session_ended_request, session):
     print("on_session_ended requestId=" + session_ended_request['requestId'] +
           ", sessionId=" + session['sessionId'])
     # add cleanup logic here
-
-
-# --------------- Email handler -----------------
 
 # --------------- Main handler ------------------
 
