@@ -161,7 +161,7 @@ def email_information(session):
     except:
         session_attributes = {}
     speech_output = "I have sent a link to you about more information. " \
-					"Please check your inbox in 5 seconds or more. " \
+					"Please check your inbox in a moment. " \
 					"What else would you like to learn about?"
     card_title = "Email Link"
     reprompt_text = "Hello? Are you still there? What else would you like" \
@@ -216,10 +216,7 @@ def top_level_menu(intent, session):
         intent['name'], speech_output, reprompt_text, should_end_session))
         
 def employee_benefits():
-    try:
-        session_attributes = session['attributes']
-    except:
-        session_attributes = {}
+    session_attributes = {}
     card_title = "Employee Benifits"
     speech_output = "T Mobile's beniefits are going to rock your world. " \
                     " Benefits include medical and prescription benefits. " \
@@ -227,10 +224,6 @@ def employee_benefits():
                     "and much much more. " \
                     "If you would like more information, please say yes and I will email the link to you. "
     should_end_session = False
-    
-    session_attributes['email'] = ["Employee Benefits","http://tmusabenefitshub.com/",\
-                                    "\n\nHere's the information you requested: ", " If you need more help, please contact the EIT or Help Desk. "]
-
 
     return build_response(session_attributes, build_speechlet_response(
         intent['name'], speech_output, reprompt_text, should_end_session))
@@ -238,7 +231,7 @@ def employee_benefits():
 def retirement():
     card_title="401k"
     session_attributes = {}
-    speech_output = "As one of the top companies to work for " \
+    speech_output = "As one of the top companies to work for, " \
                     "we will contribute to your four oh one k, " \
                     "however, it is only 5% of your earnings because " \
                     "to be frank, we don't want you to retire too early. " \
@@ -287,7 +280,7 @@ def employee_handbook():
 def company_culture():
     card_title= "Our Culture"
     session_attributes = {}
-    speech_output = "T Mobile's company culture is best exemplified by our CEO, John Legere " \
+    speech_output = "T Mobile's company culture is best exemplified by our CEO, John Legere. " \
                     "He swears a lot and wears magenta converse" \
                     "In other words, we're a lot cooler than Verizon. " \
                     "Would you like more information sent to your email? "
@@ -333,7 +326,7 @@ def wireless_network():
 def employee_recognition():
     card_title= "Employee Recognition"
     session_attributes = {}
-    speech_output= "Wow, the team that made this product is so cool! Would you like more information about how to be recognized sent to you through email? "
+    speech_output= "Wow, the team that made this product is so cool! Would you like more information about how to be recognized to be sent to you through email? "
     
     should_end_session = False
     return build_response({}, build_speechlet_response(
@@ -348,7 +341,7 @@ def development_resources():
     return build_response({}, build_speechlet_response(
     card_title, speech_output, None, should_end_session))
 
-def Profesisonal_Standards_Training():
+def Professional_Standards_Training():
     card_title= "Pro_Standards_Training"
     session_attributes = {}
     speech_output= "I see you are wanting to know more about our " \
@@ -409,6 +402,16 @@ def Complaints_and_Incidents():
     return build_response({}, build_speechlet_response(
     card_title, speech_output, None, should_end_session))
     
+def socialMedia():
+    card_title = "Social Media"
+    session_attributes = {}
+    speech_output= "I see you are interested in learning more about social Media. Well, just follow John Legere on Twitter. " \
+                    "Would you like me to email you his Twitter handle? "
+    should_end_session = False
+    return build_response({}, build_speechlet_response(
+    card_title, speech_output, None, should_end_session))
+    
+    
 # --------------- Events ------------------
 
 def on_session_started(session_started_request, session):
@@ -445,6 +448,8 @@ def on_intent(intent_request, session):
         return give_information_time_keeping(session)
     elif intent_name == "LearningResourcesIntent":
         return Learning_Resources()
+    elif intent_name == "professionalTrainingIntent":
+        return Professional_Standards_Training()
     elif intent_name == "ComplaintIntent":
         return Complaints_and_Incidents()
     elif intent_name  == "accelerateMyPerformanceIntent":
@@ -455,6 +460,8 @@ def on_intent(intent_request, session):
         return Employee_Expectations()
     elif intent_name == "diversityInclusionIntent":
         return diversity_inclusion()
+    elif intent_name == "retirementIntent":
+        return retirement()
     elif intent_name == "talentReferralIntent":
         return talent_referral()
     elif intent_name == "wirelessIntent":
@@ -475,7 +482,7 @@ def on_intent(intent_request, session):
         return talent_referral()
     elif intent_name == "empRecogIntent":
         return employee_recognition()
-    elif intent_name == "EmployeeBenifitsIntent":
+    elif intent_name == "EmployeeBenefitsIntent":
         return employee_benefits()
     elif intent_name == "emailInfoIntent":
         return email_information(session)
@@ -487,6 +494,8 @@ def on_intent(intent_request, session):
         return middle_anymore_info()
     elif intent_name == "giveInformationIntentDisco":
         return give_information_disco(session)
+    elif intent_name == "socialMediaIntent":
+        return socialMedia()
     elif intent_name == "continueIntent":
         return middle_anymore_info()
     elif intent_name == "AMAZON.HelpIntent":
