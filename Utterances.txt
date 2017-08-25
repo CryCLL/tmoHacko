@@ -92,3 +92,6 @@ professionalTrainingIntent professional standards training
 tmusIntent tell me about tmus policies
 tmusIntent tell me about t mobile policies
 tmusIntent tell me about t.m.u.s. policies
+employeeMobileDiscountIntent employee mobile discount 
+employeeMobileDiscountIntent tell me about employee mobile discounts
+employeeMobileDiscountIntent mobile discount
