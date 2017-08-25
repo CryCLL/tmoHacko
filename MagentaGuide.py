@@ -5,8 +5,8 @@ Tmo Hackathon: Alexa Guide for Onboarding
 from __future__ import print_function
 import smtplib
 #Name, email, id
-user = ("Joseph Koblitz", "Joseph.Koblitz1@T-Mobile.com","123456")
-#user = ("Leo Liu", "Leo.Liu7@T-Mobile.com","123456")
+#user = ("Joseph Koblitz", "Joseph.Koblitz1@T-Mobile.com","123456")
+user = ("Leo Liu", "Leo.Liu7@T-Mobile.com","123456")
 #subject,link,body
 email = ["","",""]
 
@@ -90,7 +90,7 @@ def getting_started():
 
     card_title= "Getting Started"
     speech_output ="To get started, ask me questions about your first day " \
-                    "for example, you can ask me about benefits like employee discounts or time keeping."
+                    "for example, you can ask me about things like employee discounts or time keeping."
 
     reprompt_text = "Are you still there"
 
@@ -120,6 +120,7 @@ def give_information_disco(session):
         session_attributes = session['attributes']
     except:
         session_attributes = {}
+        
     card_title = "Giving Information"
     speech_output = "I see you wanted to know about employee discounts. " \
 					"Well, everyone gets 200% off everything. " \
@@ -167,7 +168,10 @@ def email_information(session):
     reprompt_text = "Hello? Are you still there? What else would you like" \
 	                "to learn about?"
 
-    email=session_attributes['email']
+    try:
+        email=session_attributes['email']
+    except:
+        email= {}
     send_email([user[1]],email[0], email[3]+email[2]+email[1])
 
     should_end_session = False
@@ -177,7 +181,7 @@ def email_information(session):
 
 def helper():
     card_title = "Help"
-    speech_output = "If you require more asisstance, please contact the EIT or Help Desk."
+    speech_output = "If you require more asisstance, please contact the EIT or Help Desk. Farewell. "
 
     should_end_session = True
     return build_response({}, build_speechlet_response(
@@ -216,17 +220,18 @@ def top_level_menu(intent, session):
         intent['name'], speech_output, reprompt_text, should_end_session))
         
 def employee_benefits():
-    session_attributes = {}
-    card_title = "Employee Benifits"
-    speech_output = "T Mobile's beniefits are going to rock your world. " \
+        
+    card_title = "Employee Benefits"
+    speech_output = "T Mobile's benefits are going to rock your world. " \
                     " Benefits include medical and prescription benefits. " \
                     " dental and vision plans, life insurance, flexible spending. " \
                     "and much much more. " \
                     "If you would like more information, please say yes and I will email the link to you. "
+                    
+    reprompt_text = "Hello? Is there anyone there? Would you like an email sent to you? "
     should_end_session = False
-
-    return build_response(session_attributes, build_speechlet_response(
-        intent['name'], speech_output, reprompt_text, should_end_session))
+    return build_response({}, build_speechlet_response(
+    card_title, speech_output, reprompt_text, should_end_session))
         
 def retirement():
     card_title="401k"
@@ -285,8 +290,7 @@ def company_culture():
                     "In other words, we're a lot cooler than Verizon. " \
                     "Would you like more information sent to your email? "
     
-    reprompt_text = "Hello? Are you still there? What else would you like" \
-                    "to learn about?"
+    reprompt_text = "Hello? Anyone still there? Would you like an email to be sent? "
                     
 
     should_end_session = False
@@ -298,98 +302,104 @@ def diversity_inclusion():
     session_attributes = {}
     speech_output= "If you turn everyone Magenta, you don't need to worry about diversity. Exclamation mark. Because I can't sound enthusiastic. Would you like an email with more information sent to you?"
 
-
+    reprompt_text = "Hello? Anyone still there? Would you like an email to be sent? "
     should_end_session = False
     return build_response({}, build_speechlet_response(
-    card_title, speech_output, None, should_end_session))
+    card_title, speech_output, reprompt_text, should_end_session))
     
 def talent_referral():
     card_title= "Talent Referral"
     session_attributes = {}
-    speech_output= "To clone and refer yourself, thereby doubling your paycheck, please discuss your options with John Legere's ego on the 50th floor of Newport Five. Would you like an email with new info? "
+    speech_output = "To clone and refer yourself, thereby doubling your paycheck, please discuss your options with John Legere's ego on the 50th floor of Newport Five. Would you like an email with new info? "
     
-
+    reprompt_text = "Hello? Anyone still there? Would you like an email to be sent? "
     should_end_session = False
     return build_response({}, build_speechlet_response(
-    card_title, speech_output, None, should_end_session))   
+    card_title, speech_output, reprompt_text, should_end_session))   
     
 def wireless_network():
-    card_title= "Wireless network"
+    card_title = "Wireless network"
     session_attributes = {}
-    speech_output= "All that you need to know is that our network is the best network. Not Verizon's. Ours."
+    speech_output = "All that you need to know is that our network is the best network. Not Verizon's. Ours."
 
-
+    reprompt_text = "Hello? Anyone still there? Would you like an email to be sent? "
     should_end_session = False
     return build_response({}, build_speechlet_response(
-    card_title, speech_output, None, should_end_session))
+    card_title, speech_output, reprompt_text, should_end_session))
     
 def employee_recognition():
-    card_title= "Employee Recognition"
+    card_title = "Employee Recognition"
     session_attributes = {}
-    speech_output= "Wow, the team that made this product is so cool! Would you like more information about how to be recognized to be sent to you through email? "
+    speech_output = "Wow, the team that made this product is so cool! Would you like more information about how to be recognized to be sent to you through email? "
     
+    reprompt_text = "Hello? Anyone still there? Would you like an email to be sent? "
     should_end_session = False
     return build_response({}, build_speechlet_response(
-    card_title, speech_output, None, should_end_session))
+    card_title, speech_output, reprompt_text, should_end_session))
     
 def development_resources():
-    card_title= "Develop Resources"
+    card_title = "Develop Resources"
     session_attributes = {}
-    speech_output= "Our resources don't need development. I'm a strong independent AI, leave me alone. I will give you the option of recieving an email with more information though. Would you like an email with more information sent to your inbox? "
+    speech_output = "Our resources don't need development. I'm a strong independent AI, leave me alone. I will give you the option of recieving an email with more information though. Would you like an email with more information sent to your inbox? "
+
+    reprompt_text = "Hello? Anyone still there? Would you like an email to be sent? "
 
     should_end_session = False
     return build_response({}, build_speechlet_response(
-    card_title, speech_output, None, should_end_session))
+    card_title, speech_output, reprompt_text, should_end_session))
 
 def Professional_Standards_Training():
     card_title= "Pro_Standards_Training"
     session_attributes = {}
     speech_output= "I see you are wanting to know more about our " \
                     "fantastic Professional Standards Training Program. Would you like an email sent to you about that? "
-                    
+    
+    reprompt_text = "Hello? Anyone still there? Would you like an email to be sent? "
     should_end_session = False
     return build_response({}, build_speechlet_response(
-    card_title, speech_output, None, should_end_session))
+    card_title, speech_output, reprompt_text, should_end_session))
     
 def Learning_Resources():
     card_title= "eses"
     session_attributes = {}
     speech_output= "I see you want to learn more about Learn Resources. " \
                     "Am I not enough? That's okay, I'll send you an email with more resources if you want. Do you want it? "
-
+    reprompt_text = "Hello? Anyone still there? Would you like an email to be sent? "
     should_end_session = False
     return build_response({}, build_speechlet_response(
-    card_title, speech_output, None, should_end_session))
+    card_title, speech_output, reprompt_text, should_end_session))
     
 def Accelerate_My_Performance():
     card_title= "AccelTime"
     session_attributes = {}
     speech_output= "I see you are interested in accelerating your own performance. " \
                     "The first step would be to switch from Verizon to T Mobile... There is no step 2. Would you like an email with the steps? "
-                    
+       
+    reprompt_text = "Hello? Anyone still there? Would you like an email to be sent? "             
     should_end_session = False
     return build_response({}, build_speechlet_response(
-    card_title, speech_output, None, should_end_session))
+    card_title, speech_output, reprompt_text, should_end_session))
     
 def Employee_Expectations():
     card_title= "employ_expect"
     session_attributes = {}
     speech_output= "I see you are wanting to know more about " \
                     "Employee Expectations. You are expected to make us money and not get in trouble. Would you like an email with more information? "
-                    
+    
+    reprompt_text = "Hello? Anyone still there? Would you like an email to be sent? "            
     should_end_session = False
     return build_response({}, build_speechlet_response(
-    card_title, speech_output, None, should_end_session))
+    card_title, speech_output, reprompt_text, should_end_session))
     
 def TMUS_Policies():
-    card_title= "Pro_Standards_Training"
+    card_title= "TMUS Policy"
     session_attributes = {}
-    speech_output= "I see you are wanting to know more about our " \
-                    "fantastic Professional Standards Training Program. There's so much info, I will just prompt you as to whether or not you want it sent to you by email. Would you like an email sent to you? "
+    speech_output= "I see you are wanting to know more about our legal policies. Be a good person and do the right thing. That's pretty much it. Would you like an email with more information on how to be a good person? "
     
+    reprompt_text = "Hello? Anyone still there? Would you like an email to be sent? "
     should_end_session = False
     return build_response({}, build_speechlet_response(
-    card_title, speech_output, None, should_end_session))
+    card_title, speech_output, reprompt_text, should_end_session))
     
     
 def Complaints_and_Incidents():
@@ -398,18 +408,22 @@ def Complaints_and_Incidents():
     speech_output= "I see you are interested in complaining about something. " \
                     "There will be no complaining. Would you like an email sent to you with the same amount of information? "
                     
+    reprompt_text = "Hello? Anyone still there? Would you like an email to be sent? "
+                    
     should_end_session = False
     return build_response({}, build_speechlet_response(
-    card_title, speech_output, None, should_end_session))
+    card_title, speech_output, reprompt_text, should_end_session))
     
 def socialMedia():
     card_title = "Social Media"
     session_attributes = {}
     speech_output= "I see you are interested in learning more about social Media. Well, just follow John Legere on Twitter. " \
                     "Would you like me to email you his Twitter handle? "
+    
+    reprompt_text = "Hello? Anyone still there? Would you like an email to be sent? "
     should_end_session = False
     return build_response({}, build_speechlet_response(
-    card_title, speech_output, None, should_end_session))
+    card_title, speech_output, reprompt_text, should_end_session))
     
     
 # --------------- Events ------------------
@@ -446,6 +460,8 @@ def on_intent(intent_request, session):
         return top_level_menu(intent, session)
     elif intent_name == "TimeKeepingIntent":
         return give_information_time_keeping(session)
+    elif intent_name == "tmusIntent":
+        return TMUS_Policies()
     elif intent_name == "LearningResourcesIntent":
         return Learning_Resources()
     elif intent_name == "professionalTrainingIntent":
@@ -480,9 +496,7 @@ def on_intent(intent_request, session):
         return diversity_inclusion()
     elif intent_name == "talentIntent":
         return talent_referral()
-    elif intent_name == "empRecogIntent":
-        return employee_recognition()
-    elif intent_name == "EmployeeBenefitsIntent":
+    elif intent_name == "employeeBenefitsIntent":
         return employee_benefits()
     elif intent_name == "emailInfoIntent":
         return email_information(session)
