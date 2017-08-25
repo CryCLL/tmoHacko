@@ -94,6 +94,9 @@
       "intent": "listOfTermsIntent"
     },
     {
+      "intent": "employeeExpectationsIntent"
+    },
+    {
       "intent": "continueIntent"
     }
   ]

@@ -289,6 +289,26 @@ def code_of_conduct(session):
    return build_response(session_attributes, build_speechlet_response(
    card_title, speech_output, reprompt_text, should_end_session))  
    
+   
+def employeeExpectations(session):
+   card_title= "Code of employee expectations Conduct"
+   try:
+        session_attributes = session['attributes']
+   except:
+        session_attributes = {}
+   speech_output= "I see you are interested in employee expectations. You are expected to be good and make us tons of money and bring us above all the rest. Are you interested in receiving an email to learn more? "         
+    
+   reprompt_text = "Hello? Are you still there? What else would you like " \
+        "to learn about? "
+
+   session_attributes['email'] = ["Employee Expectations","https://tmobileusa.sharepoint.com/sites/humanresources/Pages/EmployeeDiscounts.aspx#topic_1", \
+                                    "\n\nHere's the information you requested: ", "If you require more asisstance, please contact the EIT or Help Desk. "]
+               
+
+   should_end_session = False
+   return build_response(session_attributes, build_speechlet_response(
+   card_title, speech_output, reprompt_text, should_end_session))  
+   
 def employee_handbook(session):
     card_title= "Employee Handbook"
     try:
@@ -643,6 +663,8 @@ def on_intent(intent_request, session):
 
     if intent_name == "askingIntent":
         return top_level_menu(intent, session)
+    elif intent_name == "employeeExpectationsIntent":
+        return employeeExpectations(session)
     elif intent_name == "listOfTermsIntent":
         return listOfTerms(session)
     elif intent_name == "devResourceIntent":

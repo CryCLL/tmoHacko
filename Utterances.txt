@@ -101,3 +101,5 @@ devResourceIntent development resources
 listOfTermsIntent tell me about the list of terms
 listOfTermsIntent list of terms
 listOfTermsIntent give me the list of terms
+employeeExpectationsIntent tell me about emplyee expectations
+employeeExpectationsIntent employee expectation
