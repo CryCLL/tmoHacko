@@ -1,0 +1,94 @@
+AMAZON.HelpIntent help
+AMAZON.CancelIntent cancel
+middle_anymore no
+giveInformationIntentDisco tell me about employee discounts
+giveInformationIntentDisco where do I get my free phone
+giveInformationIntentDisco free stuff
+giveInformationIntentDisco I want my discounts
+giveInformationIntentDisco employee discounts
+giveInformationIntentDisco discounts
+giveInformationIntentDisco deals
+thatIsAllIntent that's all
+thatIsAllIntent that will be all
+thatIsAllIntent i don't need you anymore
+thatIsAllIntent go away
+thatIsAllIntent I quit
+thatIsAllIntent im done
+thatIsAllIntent I have to go
+thatIsAllIntent that is enough
+emailInfoIntent That would be great
+emailInfoIntent That'd be great
+emailInfoIntent yes
+emailInfoIntent send me that bad boy
+emailInfoIntent send me the email
+emailInfoIntent yeah go ahead and send the email
+emailInfoIntent do the email thing
+GettingStartedIntent let's get started
+GettingStartedIntent what do I do
+GettingStartedIntent I'm ready
+GettingStartedIntent Get Started
+GettingStartedIntent Begin the process
+GettingStartedIntent Do it
+TimeKeepingIntent How do I log my hours
+TimeKeepingIntent What about time keeping
+TimeKeepingIntent How do I keep track of my hours
+TimeKeepingIntent Logging hours
+TimeKeepingIntent Where do I log my hours
+TimeKeepingIntent Where do I get money
+TimeKeepingIntent time keeping
+TimeKeepingIntent tell me about time keeping
+TimeKeepingIntent where does the time go
+continueIntent I have more questions
+continueIntent I have more to ask of you
+employeeBenefitsIntent tell me about the benefits I will get
+employeeBenefitsIntent tell me about employee benefits
+employeeBenefitsIntent employee benefits
+employeeBenefitsIntent what benefits will I get
+retirementIntent When can I retire
+retirementIntent tell me about retirement
+retirementIntent retirement
+retirementIntent four oh one kay
+CodeOfConductIntent tell me abut the code of conduct
+CodeOfConductIntent code of conduct
+CodeOfConductIntent the code of conduct
+EmpHandbookIntent read me the employee handbook
+EmpHandbookIntent tell me about the employee handbook
+EmpHandbookIntent employee handbook
+EmpHandbookIntent what about the employee handbook
+CompanyCultureIntent what is the company culture
+CompanyCultureIntent tell me about the company culture
+CompanyCultureIntent culture
+CompanyCultureIntent company culture
+diversityIntent what is the diversity like
+diversityIntent tell me about diversity
+diversityIntent diversity
+talentIntent am I talented
+talentIntent tell me about company talent
+talentIntent talent
+wirelessIntent tell me about wireless
+wirelessIntent tell me about the wireless network
+empRecogIntent how do we recognize employees
+empRecogIntent employee recognition
+empRecogIntent I want to know about employee recognition
+empRecogIntent how are employees recognized
+accelerateMyPerformanceIntent how can I get ahead of others
+accelerateMyPerformanceIntent accelerate my performance
+accelerateMyPerformanceIntent how can I accelerate my performance
+LearningResourcesIntent what are some learning resources
+LearningResourcesIntent learning resources
+LearningResourcesIntent tell me about learning resource
+ComplaintIntent where can I file a complaint
+ComplaintIntent complaint
+ComplaintIntent how can I complain 
+ComplaintIntent tell me about complaints
+employeeBenefitsIntent tell me about benefits
+employeeBenefitsIntent benefits
+socialMediaIntent social media
+socialMediaIntent tell me about social media
+retirementIntent four o one k 
+professionalTrainingIntent tell me about professional training
+professionalTrainingIntent professional training
+professionalTrainingIntent professional standards training 
+tmusIntent tell me about tmus policies
+tmusIntent tell me about t mobile policies
+tmusIntent tell me about t.m.u.s. policies

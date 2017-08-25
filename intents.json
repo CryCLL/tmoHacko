@@ -1,0 +1,91 @@
+{
+  "intents": [
+    {
+      "slots": [
+        {
+          "name": "Color",
+          "type": "LIST_OF_ITEMS"
+        }
+      ],
+      "intent": "MyColorIsIntent"
+    },
+    {
+      "intent": "askingIntent"
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    },
+    {
+      "intent": "AMAZON.CancelIntent"
+    },
+    {
+      "intent": "middle_anymore"
+    },
+    {
+      "intent": "giveInformationIntentDisco"
+    },
+    {
+      "intent": "thatIsAllIntent"
+    },
+    {
+      "intent": "emailInfoIntent"
+    },
+    {
+      "intent": "GettingStartedIntent"
+    },
+    {
+      "intent": "TimeKeepingIntent"
+    },
+    {
+      "intent": "employeeBenefitsIntent"
+    },
+    {
+      "intent": "benefitIntent"
+    },
+    {
+      "intent": "retirementIntent"
+    },
+    {
+      "intent": "CodeOfConductIntent"
+    },
+    {
+      "intent": "EmpHandbookIntent"
+    },
+    {
+      "intent": "CompanyCultureIntent"
+    },
+    {
+      "intent": "diversityIntent"
+    },
+    {
+      "intent": "talentIntent"
+    },
+    {
+      "intent": "wirelessIntent"
+    },
+    {
+      "intent": "empRecogIntent"
+    },
+    {
+      "intent": "accelerateMyPerformanceIntent"
+    },
+    {
+      "intent": "LearningResourcesIntent"
+    },
+    {
+      "intent": "ComplaintIntent"
+    },
+    {
+      "intent": "socialMediaIntent"
+    },
+    {
+      "intent": "professionalTrainingIntent"
+    },
+    {
+      "intent": "tmusIntent"
+    },
+    {
+      "intent": "continueIntent"
+    }
+  ]
+}
