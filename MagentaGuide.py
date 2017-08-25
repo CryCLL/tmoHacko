@@ -281,7 +281,7 @@ def code_of_conduct(session):
    reprompt_text = "Hello? Are you still there? What else would you like " \
         "to learn about? "
 
-   session_attributes['email'] = ["Employee Discount Information","https://tmobileusa.sharepoint.com/sites/humanresources/Pages/EmployeeDiscounts.aspx#topic_1", \
+   session_attributes['email'] = ["Code of Business Conduct Information","https://tmobileusa.sharepoint.com/sites/humanresources/Pages/EmployeeDiscounts.aspx#topic_1", \
                                     "\n\nHere's the information you requested: ", "If you require more asisstance, please contact the EIT or Help Desk. "]
                
 
@@ -301,7 +301,7 @@ def employee_handbook(session):
     reprompt_text = "Hello? Are you still there? What else would you like" \
                    "to learn about?"
                    
-    session_attributes['email'] = ["Employee Discount Information","https://tmobileusa.sharepoint.com/sites/humanresources/Pages/EmployeeDiscounts.aspx#topic_1", \
+    session_attributes['email'] = ["Employee Handbook Information","https://tmobileusa.sharepoint.com/sites/humanresources/Pages/EmployeeDiscounts.aspx#topic_1", \
                                     "\n\nHere's the information you requested: ", "If you require more asisstance, please contact the EIT or Help Desk. "]
 
     should_end_session = False
@@ -321,7 +321,7 @@ def company_culture(session):
     
     reprompt_text = "Hello? Anyone still there? Would you like an email to be sent? "
                     
-    session_attributes['email'] = ["Employee Discount Information","https://tmobileusa.sharepoint.com/sites/humanresources/Pages/EmployeeDiscounts.aspx#topic_1", \
+    session_attributes['email'] = ["Company Culture Information","https://tmobileusa.sharepoint.com/sites/humanresources/Pages/EmployeeDiscounts.aspx#topic_1", \
                                     "\n\nHere's the information you requested: ", "If you require more asisstance, please contact the EIT or Help Desk. "]
 
     should_end_session = False
@@ -338,7 +338,7 @@ def diversity_inclusion(session):
 
     reprompt_text = "Hello? Anyone still there? Would you like an email to be sent? "
     
-    session_attributes['email'] = ["Employee Discount Information","https://tmobileusa.sharepoint.com/sites/humanresources/Pages/EmployeeDiscounts.aspx#topic_1", \
+    session_attributes['email'] = ["Diversity Inclusion Information","https://tmobileusa.sharepoint.com/sites/humanresources/Pages/EmployeeDiscounts.aspx#topic_1", \
                                     "\n\nHere's the information you requested: ", "If you require more asisstance, please contact the EIT or Help Desk. "]
 
     
@@ -572,6 +572,45 @@ def employeeMobileDiscount(session):
     card_title, speech_output, reprompt_text, should_end_session))
     
     
+def developmentResources(session):
+    card_title= "devResources"
+    try:
+        session_attributes = session['attributes']
+    except:
+        session_attributes = {}
+    speech_output= "I see you are interested in the development resources available to employees. " \
+                    "Great! The most important one is me, T Lexa. Information about the other ones can be dumped in an email or something. Would you like an email with development resource info? "
+       
+    reprompt_text = "Hello? Anyone still there? Would you like an email to be sent? "    
+    
+    session_attributes['email'] = ["Development Resources","https://tmobileusa.sharepoint.com/sites/humanresources/Pages/EmployeeDiscounts.aspx#topic_1", \
+                                    "\n\nHere's the information you requested: ", "If you require more asisstance, please contact the EIT or Help Desk. "]
+
+    
+    should_end_session = False
+    return build_response(session_attributes, build_speechlet_response(
+    card_title, speech_output, reprompt_text, should_end_session))
+    
+    
+def listOfTerms(session):
+
+    try:
+        session_attributes = session['attributes']
+    except:
+        session_attributes = {}
+    card_title = "list of terms"
+    speech_output = "Bold. Magenta. Un Carrier. 5 G... These are the only terms you really need to know. Would you like a complete list of terms sent to your email? "
+
+    reprompt_text = "Are you still there? Would you like an email sent to you? "
+    should_end_session = False
+
+    session_attributes['email'] = ["List of Terms","https://employeecare.t-mobile.com/hc/en-us/articles/115005758868-Kronos-Overview-Access?flash_digest=b6899f54d7ddaab4c8447bccdfa70d595bfc586e",\
+                                    "\n\nHere's the information you requested: ", " If you need more help, please contact the EIT or Help Desk. "]
+
+    return build_response(session_attributes, build_speechlet_response(
+    card_title, speech_output, reprompt_text, should_end_session))
+    
+    
 # --------------- Events ------------------
 
 def on_session_started(session_started_request, session):
@@ -604,6 +643,10 @@ def on_intent(intent_request, session):
 
     if intent_name == "askingIntent":
         return top_level_menu(intent, session)
+    elif intent_name == "listOfTermsIntent":
+        return listOfTerms(session)
+    elif intent_name == "devResourceIntent":
+        return developmentResources(session)
     elif intent_name == "employeeMobileDiscountIntent":
         return employeeMobileDiscount(session)
     elif intent_name == "TimeKeepingIntent":

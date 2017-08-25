@@ -95,3 +95,9 @@ tmusIntent tell me about t.m.u.s. policies
 employeeMobileDiscountIntent employee mobile discount 
 employeeMobileDiscountIntent tell me about employee mobile discounts
 employeeMobileDiscountIntent mobile discount
+devResourceIntent tell me about development resources
+devResourceIntent tell me about resources for development
+devResourceIntent development resources
+listOfTermsIntent tell me about the list of terms
+listOfTermsIntent list of terms
+listOfTermsIntent give me the list of terms
