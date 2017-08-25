@@ -103,3 +103,10 @@ listOfTermsIntent list of terms
 listOfTermsIntent give me the list of terms
 employeeExpectationsIntent tell me about emplyee expectations
 employeeExpectationsIntent employee expectation
+howWePlayIntent how do we play
+howWePlayIntent tell me about how we play
+uncarrierIntent what is the un carrier
+uncarrierIntent un carrier
+uncarrierIntent tell me about un carrier
+tNationIntent what is t. nation
+tNationIntent t nation

@@ -52,6 +52,12 @@
       "intent": "EmpHandbookIntent"
     },
     {
+      "intent": "howWePlayIntent"
+    },
+     {
+      "intent": "uncarrierIntent"
+    },
+    {
       "intent": "CompanyCultureIntent"
     },
     {
@@ -95,6 +101,9 @@
     },
     {
       "intent": "employeeExpectationsIntent"
+    },
+    {
+      "intent": "tNationIntent"
     },
     {
       "intent": "continueIntent"

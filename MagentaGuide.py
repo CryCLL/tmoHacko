@@ -74,8 +74,8 @@ def get_welcome_response():
                     "First, let's get you logged into your company laptop. " \
                     "Please log in with your given NT ID and password. " \
                     "If you do not have your log in information, please contact " \
-                    "your manager. Once you have finished, say get started or i'm ready "\
-                    "to ask me any questions. "
+                    "your manager... Once you have finished, say... get started or... i'm ready "\
+                    "to ask me any question you have for me. "
 
     reprompt_text = "Are you still there?"
     should_end_session = False
@@ -89,10 +89,10 @@ def getting_started():
     """
 
     card_title= "Getting Started"
-    speech_output ="To get started, ask me questions about your first day " \
-                    "for example, you can ask me about things like employee discounts or time keeping."
+    speech_output ="Excellent! To get started, ask me questions about your first day... " \
+                    "for example, you can ask me about things like employee benefits, time keeping, or even about social media."
 
-    reprompt_text = "Are you still there"
+    reprompt_text = "Are you still there? Please ask a question so you can get started on a wonderful journey! "
 
     should_end_session = False
 
@@ -181,7 +181,7 @@ def email_information(session):
 
 def helper():
     card_title = "Help"
-    speech_output = "If you require more asisstance, please contact the EIT or Help Desk. Farewell. "
+    speech_output = "If you require more assistance, please contact the E.I.T. or Help Desk. Farewell and have a fantastic start to your new career. "
 
     should_end_session = True
     return build_response({}, build_speechlet_response(
@@ -197,10 +197,10 @@ def thatIsAll():
 
 def middle_anymore_info():
     card_title = "Just Asking Anymore"
-    speech_output = "Go ahead and ask about anything else you would" \
+    speech_output = "Okay, Go ahead and ask about anything else you would" \
 					"like to know more about!"
 
-    reprompt_text = "Is anyone still there?"
+    reprompt_text = "Is anyone still there? Would you like an email to be sent?"
     should_end_session = False
     return build_response({}, build_speechlet_response(
     card_title, speech_output, reprompt_text, should_end_session))
@@ -334,8 +334,8 @@ def company_culture(session):
         session_attributes = session['attributes']
     except:
         session_attributes = {}
-    speech_output = "T Mobile's company culture is best exemplified by our CEO, John Legere. " \
-                    "He swears a lot and wears magenta converse" \
+    speech_output = "T Mobile's company culture is best exemplified by our CEO, John Ledgere. " \
+                    "He swears a lot and wears magenta converse shoes." \
                     "In other words, we're a lot cooler than Verizon. " \
                     "Would you like more information sent to your email? "
     
@@ -372,7 +372,7 @@ def talent_referral(session):
         session_attributes = session['attributes']
     except:
         session_attributes = {}
-    speech_output = "To clone and refer yourself, thereby doubling your paycheck, please discuss your options with John Legere's ego on the 50th floor of Newport Five. Would you like an email with new info? "
+    speech_output = "To clone and refer yourself, thereby doubling your paycheck, please discuss your options with John Ledgere's ego on the 50th floor of Newport Five. Would you like an email with new info? "
     
     reprompt_text = "Hello? Anyone still there? Would you like an email to be sent? "
     
@@ -463,7 +463,7 @@ def Learning_Resources(session):
         session_attributes = session['attributes']
     except:
         session_attributes = {}
-    speech_output= "I see you want to learn more about Learn Resources. " \
+    speech_output= "I see you want to learn more about Learning Resources. " \
                     "Am I not enough? That's okay, I'll send you an email with more resources if you want. Do you want it? "
     reprompt_text = "Hello? Anyone still there? Would you like an email to be sent? "
     
@@ -558,7 +558,7 @@ def socialMedia(session):
         session_attributes = session['attributes']
     except:
         session_attributes = {}
-    speech_output= "I see you are interested in learning more about social Media. Well, just follow John Legere on Twitter. " \
+    speech_output= "I see you are interested in learning more about social Media. Well, just follow John Ledgere on Twitter. " \
                     "Would you like me to email you his Twitter handle? "
     
     reprompt_text = "Hello? Anyone still there? Would you like an email to be sent? "
@@ -630,6 +630,71 @@ def listOfTerms(session):
     return build_response(session_attributes, build_speechlet_response(
     card_title, speech_output, reprompt_text, should_end_session))
     
+def didntGetIt():
+
+    session_attributes = {}
+    card_title = "dun get it"
+    speech_output = "Sorry, I couldn't quite get that. Could you say it again please? Thank you! "
+
+    reprompt_text = "Are you still there? I would like to understand you so I can answer your question! "
+    should_end_session = False
+
+    return build_response(session_attributes, build_speechlet_response(
+    card_title, speech_output, reprompt_text, should_end_session))
+    
+def howWePlay(session):
+
+    try:
+        session_attributes = session['attributes']
+    except:
+        session_attributes = {}
+    card_title = "how we play"
+    speech_output = "It looks like you want to know how we play! Here are the rules. Heads I win. Tails you lose. Would you like an extended guide of how we play sent to your email?  "
+
+    reprompt_text = "Are you still there? Would you like an email sent to you? "
+    should_end_session = False
+
+    session_attributes['email'] = ["How we Play","https://employeecare.t-mobile.com/hc/en-us/articles/115005758868-Kronos-Overview-Access?flash_digest=b6899f54d7ddaab4c8447bccdfa70d595bfc586e",\
+                                    "\n\nHere's the information you requested: ", " If you need more help, please contact the EIT or Help Desk. "]
+
+    return build_response(session_attributes, build_speechlet_response(
+    card_title, speech_output, reprompt_text, should_end_session))
+    
+def unCarrier(session):
+
+    try:
+        session_attributes = session['attributes']
+    except:
+        session_attributes = {}
+    card_title = "Uncarrier"
+    speech_output = "Un carrier. The answer to life, the universe, and everything. The trick is knowing what the question is. Would you like more information emailed to you? "
+
+    reprompt_text = "Are you still there? Would you like an email sent to you? "
+    should_end_session = False
+
+    session_attributes['email'] = ["The Answer to Life","https://employeecare.t-mobile.com/hc/en-us/articles/115005758868-Kronos-Overview-Access?flash_digest=b6899f54d7ddaab4c8447bccdfa70d595bfc586e",\
+                                    "\n\nHere's the information you requested: ", " If you need more help, please contact the EIT or Help Desk. "]
+
+    return build_response(session_attributes, build_speechlet_response(
+    card_title, speech_output, reprompt_text, should_end_session))
+    
+def tNation(session):
+
+    try:
+        session_attributes = session['attributes']
+    except:
+        session_attributes = {}
+    card_title = "tnation"
+    speech_output = "I see you wanted to know about T Nation. Well, it is basically a website where you can access all the things. Would you like an email sent to you with more information? "
+    reprompt_text = "Are you still there? Would you like an email sent to you? "
+    should_end_session = False
+
+    session_attributes['email'] = ["The Answer to Life","https://employeecare.t-mobile.com/hc/en-us/articles/115005758868-Kronos-Overview-Access?flash_digest=b6899f54d7ddaab4c8447bccdfa70d595bfc586e",\
+                                    "\n\nHere's the information you requested: ", " If you need more help, please contact the EIT or Help Desk. "]
+
+    return build_response(session_attributes, build_speechlet_response(
+    card_title, speech_output, reprompt_text, should_end_session))
+    
     
 # --------------- Events ------------------
 
@@ -663,6 +728,12 @@ def on_intent(intent_request, session):
 
     if intent_name == "askingIntent":
         return top_level_menu(intent, session)
+    elif intent_name == "tNationIntent":
+        return tNation(session)
+    elif intent_name == "uncarrierIntent":
+        return unCarrier(session)
+    elif intent_name == "howWePlayIntent":
+        return howWePlay(session)
     elif intent_name == "employeeExpectationsIntent":
         return employeeExpectations(session)
     elif intent_name == "listOfTermsIntent":
@@ -693,7 +764,7 @@ def on_intent(intent_request, session):
         return retirement(session)
     elif intent_name == "wirelessIntent":
         return wireless_network(session)
-    elif intent_name == "employeeRecognitionIntent":
+    elif intent_name == "empRecogIntent":
         return employee_recognition(session)
     elif intent_name == "CodeOfConductIntent":
         return code_of_conduct(session)
@@ -726,7 +797,7 @@ def on_intent(intent_request, session):
     elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":
         return handle_session_end_request()
     else:
-        raise ValueError("Invalid intent")
+        return didntGetIt()
 
 
 def on_session_ended(session_ended_request, session):
